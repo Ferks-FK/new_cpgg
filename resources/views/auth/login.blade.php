@@ -1,0 +1,33 @@
+@extends('layouts.login')
+
+@section('content')
+    <x-module x-data="login()">
+        <div class="flex flex-col border-t-[3px] border-blue-500 rounded py-5 px-3 bg-zinc-700 min-w-[350px] shadow-md">
+            <a class="text-center text-5xl font-semibold hover:text-blue-400 mb-5" href="#">Company</a>
+            <p class="text-center">Login to start your session</p>
+            <x-form x-on:submit.prevent="handleLogin()">
+                <x-form.group>
+                    <x-form.label for="email">Email</x-form.label>
+                    <x-form.input x-model="form.data.email" type="email" icon="icon.mail" id="email"/>
+                    <x-form.error x-show="form.errors.email" x-text="form.errors.email"/>
+                </x-form.group>
+                <x-form.group>
+                    <x-form.label for="password">Password</x-form.label>
+                    <x-form.input x-model="form.data.password" type="password" icon="icon.lock" id="password"/>
+                    <x-form.error x-show="form.errors.password" x-text="form.errors.password"/>
+                </x-form.group>
+                <div class="flex items-center gap-1">
+                    <input type="checkbox" class="size-4 border-none" id="remember" />
+                    <x-form.label for="remember" class="text-sm">Remember me</x-form.label>
+                </div>
+                <x-button>
+                    <span>Login</span>
+                </x-button>
+                <div class="flex flex-col gap-2">
+                    <a href="#" class="text-sm font-medium text-zinc-400 hover:text-zinc-300">Forgot your password?</a>
+                    <a href="{{ route('register.view') }}" class="text-sm font-medium text-zinc-400 hover:text-zinc-300">Register a new membership</a>
+                </div>
+            </x-form>
+        </div>
+    </x-module>
+@endsection
