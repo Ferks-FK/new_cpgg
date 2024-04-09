@@ -1,16 +1,20 @@
-<div class="fixed top-0 z-10 w-[250px] h-screen bg-gray-700">
-    <div class="flex justify-center py-3 px-2">
+<div
+    x-cloak
+    class="flex flex-col gap-2 fixed top-0 z-10 h-screen bg-gray-800"
+    x-bind:class="$store.layout.sidebar.open ? 'w-[250px]' : '-ml-[70px] md:ml-0 w-[70px]'"
+>
+    <div class="flex justify-center items-center py-3 px-2 border-b h-[60px] border-slate-600">
         Logo
     </div>
-    <ul class="flex flex-col py-3 px-2">
-        <li>
-            <a href="#" class="w-full block py-2 px-3 rounded-md hover:bg-gray-600">Home</a>
-        </li>
-        <li>
-            <a href="#" class="w-full block py-2 px-3 rounded-md hover:bg-gray-600">Home</a>
-        </li>
-        <li>
-            <a href="#" class="w-full block py-2 px-3 rounded-md hover:bg-gray-600">Home</a>
-        </li>
-    </ul>
+    <x-navbar>
+        <x-navbar.group>
+            <x-navbar.item route="{{ route('home') }}" label="Dashboard" icon="icon.home" active="{{ request()->is(['/']) }}"/>
+            <x-navbar.item route="#" label="Servers" icon="icon.servers" active="{{ request()->is(['/servers']) }}"/>
+        </x-navbar.group>
+        <x-navbar.group title="Administration">
+            <x-navbar.item route="{{ route('admin.users') }}" label="Users" icon="icon.users" active="{{ request()->is(['admin/users']) }}"/>
+            <x-navbar.item route="{{ route('admin.servers') }}" label="Servers" icon="icon.servers" active="{{ request()->is(['admin/servers']) }}"/>
+            <x-navbar.item route="{{ route('admin.products') }}" label="Products" icon="icon.sliders" active="{{ request()->is(['admin/products']) }}"/>
+        </x-navbar.group>
+    </x-navbar>
 </div>

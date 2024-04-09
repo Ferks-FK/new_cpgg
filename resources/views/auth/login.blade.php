@@ -2,9 +2,8 @@
 
 @section('content')
     <x-module x-data="login()">
-        <div class="flex flex-col border-t-[3px] border-blue-500 rounded py-5 px-3 bg-zinc-700 min-w-[350px] shadow-md">
-            <a class="text-center text-5xl font-semibold hover:text-blue-400 mb-5" href="#">Company</a>
-            <p class="text-center">Login to start your session</p>
+        <div class="flex flex-col gap-5 border-t-[3px] border-blue-500 rounded py-5 px-3 bg-zinc-700 min-w-[350px] shadow-md">
+            <h1 class="text-center text-lg">Login to start your session</h1>
             <x-form x-on:submit.prevent="handleLogin()">
                 <x-form.group>
                     <x-form.label for="email">Email</x-form.label>

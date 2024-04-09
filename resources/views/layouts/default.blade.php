@@ -11,11 +11,12 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
     @vite('resources/css/app.css')
 </head>
-<body x-cloak x-data class="text-white bg-gray-600">
+<body x-cloak x-data class="text-white bg-gray-700">
     @include('partials.header')
     @include('partials.sidebar')
-    <div class="flex flex-col mt-[60px] pb-5 ml-[250px]">
+    <div x-bind:class="$store.layout.sidebar.open ? 'ml-[250px]' : 'ml-0 md:ml-[60px]'" class="flex flex-col mt-[60px] pb-5">
         @yield('content')
     </div>
+    <x-toast />
     @vite('resources/js/app.js')
 </body>

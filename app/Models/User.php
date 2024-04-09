@@ -17,8 +17,13 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
+        'credits',
+        'server_limit',
+        'pterodactyl_id',
+        'email_verified_at',
         'password',
     ];
 
@@ -40,8 +45,18 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
+            'credits' => 'float',
+            'server_limit' => 'float',
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Get the user's servers.
+     */
+    public function servers()
+    {
+        return $this->hasMany(Server::class);
     }
 }

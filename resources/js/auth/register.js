@@ -3,13 +3,15 @@ import axios from '../services/axios';
 export default () => ({
     form: {
         data: {
-            name: '',
+            first_name: '',
+            last_name: '',
             email: '',
             password: '',
             password_confirmation: '',
         },
         errors: {
-            name: null,
+            first_name: null,
+            last_name: null,
             email: null,
             password: null,
             password_confirmation: null
@@ -23,7 +25,11 @@ export default () => ({
         try {
             const { data } = await axios.post('/register', this.form.data);
 
-            console.log(data)
+            this.$dispatch('toast', {
+                message: data.message,
+                type: 'success',
+                pending: true
+            })
 
             window.location.href = data.redirect;
         } catch (error) {

@@ -2,14 +2,18 @@
 
 @section('content')
     <x-module x-data="register()">
-        <div class="flex flex-col border-t-[3px] border-blue-500 rounded py-5 px-3 bg-zinc-700 min-w-[350px] shadow-md">
-            <a class="text-center text-5xl font-semibold hover:text-blue-400 mb-5" href="#">Company</a>
-            <p class="text-center">Login to start your session</p>
+        <div class="flex flex-col gap-5 border-t-[3px] border-blue-500 rounded py-5 px-3 bg-zinc-700 min-w-[350px] shadow-md">
+            <h1 class="text-center text-lg">Register a new membership</h1>
             <x-form x-init="form.data" x-on:submit.prevent="handleRegister()">
                 <x-form.group>
-                    <x-form.label for="name">Name</x-form.label>
-                    <x-form.input x-model="form.data.name" id="name"/>
-                    <x-form.error x-show="form.errors.name" x-text="form.errors.name"/>
+                    <x-form.label for="firstName">Name</x-form.label>
+                    <x-form.input x-model="form.data.first_name" id="firstName"/>
+                    <x-form.error x-show="form.errors.first_name" x-text="form.errors.first_name"/>
+                </x-form.group>
+                <x-form.group>
+                    <x-form.label for="lastName">Last Name</x-form.label>
+                    <x-form.input x-model="form.data.last_name" id="lastName"/>
+                    <x-form.error x-show="form.errors.last_name" x-text="form.errors.last_name"/>
                 </x-form.group>
                 <x-form.group>
                     <x-form.label for="email">Email</x-form.label>

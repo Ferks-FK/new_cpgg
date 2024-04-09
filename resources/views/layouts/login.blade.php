@@ -12,8 +12,9 @@
     @vite('resources/css/app.css')
 </head>
 <body x-cloak x-data class="text-white">
-    <div class="flex flex-col size-full justify-center items-center bg-gray-600 text-white">
+    <div class="flex flex-col size-full justify-center items-center bg-gray-700 text-white">
         @yield('content')
     </div>
+    <x-toast />
     @vite('resources/js/app.js')
 </body>
