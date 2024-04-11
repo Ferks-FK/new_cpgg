@@ -14,6 +14,9 @@ return Application::configure(basePath: dirname(__DIR__))
             Route::middleware(['web', 'auth'])
                 ->group(base_path('routes/dashboard.php'));
 
+            Route::middleware(['web', 'auth'])
+                ->group(base_path('routes/servers.php'));
+
             Route::prefix('admin')
                 ->name('admin.')
                 ->middleware(['web', 'auth'])

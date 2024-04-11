@@ -23,7 +23,11 @@ class LoginController
         }
 
         return response()->json([
-            'message' => 'Invalid credentials.',
+            'errors' => [
+                'email' => [
+                    'These credentials do not match our records.'
+                ]
+            ],
         ], 422);
     }
 }

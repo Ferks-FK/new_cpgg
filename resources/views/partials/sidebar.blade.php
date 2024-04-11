@@ -9,7 +9,7 @@
     <x-navbar>
         <x-navbar.group>
             <x-navbar.item route="{{ route('home') }}" label="Dashboard" icon="icon.home" active="{{ request()->is(['/']) }}"/>
-            <x-navbar.item route="#" label="Servers" icon="icon.servers" active="{{ request()->is(['/servers']) }}"/>
+            <x-navbar.item route="{{ route('servers') }}" label="Servers" icon="icon.servers" active="{{ request()->is(['/servers']) }}"/>
         </x-navbar.group>
         <x-navbar.group title="Administration">
             <x-navbar.item route="{{ route('admin.users') }}" label="Users" icon="icon.users" active="{{ request()->is(['admin/users']) }}"/>

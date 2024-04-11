@@ -20,8 +20,6 @@ export default () => ({
         try {
            const { data } = await axios.post('/login', this.form.data);
 
-           console.log(data)
-
            window.location.href = data.redirect;
         } catch (error) {
             const errors = error.response.data.errors;
