@@ -15,10 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description')->nullable();
-            $table->string('external_id')->unique();
-            $table->string('identifier')->unique();
+            $table->string('identifier')->unique()->nullable();
             $table->boolean('suspended')->default(false);
-            $table->string('pterodactyl_id');
+            $table->string('pterodactyl_server_id')->nullable();
             $table->foreignId('product_id')->constrained('products');
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->timestamp('suspended_at')->nullable();

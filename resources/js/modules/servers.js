@@ -12,14 +12,12 @@ export default () => ({
             nest_id: '',
             egg_id: '',
             node_id: '',
-            location_id: '',
         },
         errors: {
             name: null,
             nest_id: null,
             egg_id: null,
             node_id: null,
-            location_id: null,
         },
         loading: false
     },
@@ -54,7 +52,27 @@ export default () => ({
     },
 
     async handleProduct(product_id) {
-        console.log(product_id)
+        this.form.data.product_id = product_id
+
+        try {
+            const { data } = await axios.post('/servers/store', this.form.data)
+
+            this.$dispatch('toast', {
+                message: data.message,
+                type: 'success',
+                pending: true
+            })
+
+            window.location.href = data.redirect;
+        } catch (error) {
+            const errors = error.response.data.errors;
+            this.form.errors = {};
+            console.error(error)
+
+            for (const field in errors) {
+                this.form.errors[field] = errors[field][0];
+            }
+        }
     },
 
     CheckResourcesByNodeId() {

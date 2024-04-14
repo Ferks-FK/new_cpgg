@@ -14,9 +14,10 @@ class LoginController
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
+            'remember' => 'boolean',
         ]);
 
-        if (auth()->attempt($request->only('email', 'password'))) {
+        if (auth()->attempt($request->only('email', 'password'), $request->remember)) {
             return response()->json([
                 'redirect' => route('home'),
             ]);

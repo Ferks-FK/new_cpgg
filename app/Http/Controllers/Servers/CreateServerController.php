@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Servers;
 
-use App\Repositories\Eloquent\ProductRepository;
-use App\Repositories\Pterodactyl\PteroNestRepository;
-use App\Repositories\Pterodactyl\PteroLocationRepository;
+use App\Contracts\Eloquent\ProductRepositoryInterface;
+use App\Contracts\EggRepositoryInterface;
+use App\Contracts\NodeRepositoryInterface;
 use Illuminate\Http\Request;
 
 class CreateServerController
 {
     public function __construct(
-        protected ProductRepository $productRepository,
-        protected PteroNestRepository $pterodactylNestRepository,
-        protected PteroLocationRepository $pterodactylLocationRepository
+        protected ProductRepositoryInterface $productRepositoryInterface,
+        protected EggRepositoryInterface $eggRepositoryInterface,
+        protected NodeRepositoryInterface $nodeRepositoryInterface
     )
     {}
 
@@ -21,11 +21,9 @@ class CreateServerController
      */
     public function __invoke(Request $request)
     {
-        $products = $this->productRepository->findWhere('active', true)->get();
-        $nests = $this->pterodactylNestRepository->all();
-        $locations = $this->pterodactylLocationRepository->all(
-            includes: ['nodes']
-        );
+        $products = $this->productRepositoryInterface->getActives();
+        $nests = $this->eggRepositoryInterface->all();
+        $locations = $this->nodeRepositoryInterface->all();
 
         return view('modules.servers.create', compact('nests', 'locations', 'products'));
     }

@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Contracts\Pterodactyl;
+namespace App\Contracts;
 
-interface PteroNestRepositoryInterface
+interface NodeRepositoryInterface
 {
-    public function all();
-
-    public function getEggs(int $nestId);
+    public function all(array $includes = []);
 
     public function find(int $id);
 

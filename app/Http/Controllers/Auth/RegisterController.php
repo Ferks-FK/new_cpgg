@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Repositories\Pterodactyl\PteroUserRepository;
-use App\Repositories\Eloquent\UserRepository;
+use App\Contracts\Eloquent\UserRepositoryInterface as EloquentUserContract;
+use App\Contracts\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Exception;
 
@@ -12,9 +12,10 @@ class RegisterController
     /**
      * The user repository instance.
      */
-    public function __construct(protected PteroUserRepository $pteroUserRepository, protected UserRepository $userRepository)
-    {
-    }
+    public function __construct(
+        protected UserRepositoryInterface $userRepositoryInterface,
+        protected EloquentUserContract $eloquentUserContract)
+    {}
 
     /**
      * Handle the incoming request.
@@ -31,7 +32,7 @@ class RegisterController
         $data['username'] = $data['first_name'];
 
         try {
-            $response = $this->pteroUserRepository->create($data);
+            $response = $this->userRepositoryInterface->create($data);
         } catch (Exception $exception) {
             throw new Exception($exception->getMessage());
         } finally {
@@ -40,7 +41,7 @@ class RegisterController
 
         $data['pterodactyl_id'] = $response['attributes']['id'];
 
-        $this->userRepository->create($data);
+        $this->eloquentUserContract->create($data);
 
         return response()->json([
             'message' => 'User created successfully',

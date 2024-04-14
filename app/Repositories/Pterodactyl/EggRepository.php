@@ -2,10 +2,10 @@
 
 namespace App\Repositories\Pterodactyl;
 
-use App\Contracts\Pterodactyl\PteroNestRepositoryInterface;
+use App\Contracts\EggRepositoryInterface;
 use Exception;
 
-class PteroNestRepository extends ApiConfigRepository implements PteroNestRepositoryInterface
+class EggRepository extends ApiConfigRepository implements EggRepositoryInterface
 {
     public function all()
     {
@@ -22,7 +22,7 @@ class PteroNestRepository extends ApiConfigRepository implements PteroNestReposi
         return $response->json()['data'];
     }
 
-    public function getEggs(int $nestId)
+    public function getEggs(?int $nestId = null)
     {
         try {
             $response = $this->application()->get("nests/$nestId/eggs");

@@ -2,10 +2,10 @@
 
 namespace App\Repositories\Pterodactyl;
 
-use App\Contracts\Pterodactyl\PteroUserRepositoryInterface;
+use App\Contracts\UserRepositoryInterface;
 use Exception;
 
-class PteroUserRepository extends ApiConfigRepository implements PteroUserRepositoryInterface
+class UserRepository extends ApiConfigRepository implements UserRepositoryInterface
 {
     public function all(array $includes = [])
     {

@@ -14,43 +14,18 @@ class ProductRepository implements ProductRepositoryInterface
         $this->query = Product::query();
     }
 
-    public function get()
+    public function getAll()
     {
-        $result = $this->query->get();
-        $this->query = Product::query();
-
-        return $result;
+        return $this->query->get();
     }
 
-    public function all()
+    public function getActives()
     {
-        //
+        return $this->query->where('active', true)->get();
     }
 
-    public function find(int $id)
+    public function findById(int $id)
     {
-        //
-    }
-
-    public function findWhere(string $column, string $operator = '=')
-    {
-        $this->query->where($column, $operator);
-
-        return $this;
-    }
-
-    public function create(array $data)
-    {
-        //
-    }
-
-    public function update(array $data, int $id)
-    {
-        //
-    }
-
-    public function delete(int $id)
-    {
-        //
+        return $this->query->find($id);
     }
 }

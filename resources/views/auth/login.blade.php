@@ -3,7 +3,7 @@
 @section('content')
     <x-module x-data="login()">
         <div class="flex flex-col gap-5 border-t-[3px] border-blue-500 rounded py-5 px-3 bg-zinc-700 min-w-[350px] shadow-md">
-            <h1 class="text-center text-lg">Login to start your session</h1>
+            <h1 class="text-lg text-center">Login to start your session</h1>
             <x-form x-on:submit.prevent="handleLogin()">
                 <x-form.group>
                     <x-form.label for="email">Email</x-form.label>
@@ -16,7 +16,7 @@
                     <x-form.error x-show="form.errors.password" x-text="form.errors.password"/>
                 </x-form.group>
                 <div class="flex items-center gap-1">
-                    <input type="checkbox" class="size-4 border-none" id="remember" />
+                    <input x-model="form.data.remember" type="checkbox" class="border-none size-4" id="remember" />
                     <x-form.label for="remember" class="text-sm">Remember me</x-form.label>
                 </div>
                 <x-button>

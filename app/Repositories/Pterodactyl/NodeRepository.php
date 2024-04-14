@@ -2,15 +2,15 @@
 
 namespace App\Repositories\Pterodactyl;
 
-use App\Contracts\Pterodactyl\PteroLocationRepositoryInterface;
+use App\Contracts\NodeRepositoryInterface;
 use Exception;
 
-class PteroLocationRepository extends ApiConfigRepository implements PteroLocationRepositoryInterface
+class NodeRepository extends ApiConfigRepository implements NodeRepositoryInterface
 {
     public function all(array $includes = [])
     {
         try {
-            $response = $this->application()->get("locations?include=" . implode(',', $includes));
+            $response = $this->application()->get("locations?include=nodes," . implode(',', $includes));
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }

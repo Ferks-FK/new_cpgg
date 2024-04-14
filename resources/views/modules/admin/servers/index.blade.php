@@ -35,10 +35,10 @@
                                         <div class="size-[20px] rounded-full {{ $server->suspended ? 'bg-red-500' : 'bg-emerald-500' }}"></div>
                                     </x-table.td>
                                     <x-table.td>{{ $server->name }}</x-table.td>
-                                    <x-table.td>{{ $server->user->name }}</x-table.td>
+                                    <x-table.td>{{ $server->user->first_name }}</x-table.td>
                                     <x-table.td>{{ $server->identifier }}</x-table.td>
                                     <x-table.td>{{ $server->product->description }}</x-table.td>
-                                    <x-table.td>{{ $server->suspended }}</x-table.td>
+                                    <x-table.td>{{ $server->suspended_at }}</x-table.td>
                                     <x-table.td>{{ $server->created_at }}</x-table.td>
                                     <x-table.td class="flex justify-end">
                                         <x-dropdown>

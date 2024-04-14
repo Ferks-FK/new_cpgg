@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Pterodactyl;
+namespace App\Repositories\Pelican;
 
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
@@ -9,7 +9,7 @@ class ApiConfigRepository
 {
     public function baseUrl(): string
     {
-        $url = config('api.pterodactyl.url');
+        $url = config('api.pelican.url');
 
         if (!str_ends_with($url, '/')) {
             $url = $url . '/';
@@ -20,12 +20,12 @@ class ApiConfigRepository
 
     public function clientToken(): string
     {
-        return config('api.pterodactyl.user_token');
+        return config('api.pelican.user_token');
     }
 
     public function applicationToken(): string
     {
-        return config('api.pterodactyl.admin_token');
+        return config('api.pelican.admin_token');
     }
 
     public function client(): PendingRequest

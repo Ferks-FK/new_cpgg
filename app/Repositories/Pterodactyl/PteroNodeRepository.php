@@ -2,10 +2,9 @@
 
 namespace App\Repositories\Pterodactyl;
 
-use App\Contracts\Pterodactyl\PteroNodeRepositoryInterface;
 use Exception;
 
-class PteroNodeRepository extends ApiConfigRepository implements PteroNodeRepositoryInterface
+class PteroNodeRepository extends ApiConfigRepository
 {
     public function all()
     {

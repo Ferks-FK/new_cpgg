@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Contracts\Pterodactyl;
+namespace App\Contracts;
 
-interface PteroNodeRepositoryInterface
+interface UserRepositoryInterface
 {
     public function all();
 

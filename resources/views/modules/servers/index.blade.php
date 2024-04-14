@@ -12,66 +12,75 @@
                 <x-module.create href="{{ route('servers.create') }}"/>
             </x-module.options>
         </x-module.header>
-            <x-card class="max-w-[350px] !p-0">
-                <x-card.content>
-                    <div class="size-full rounded-md">
-                        <div class="border-b border-slate-500 py-4 px-2">
-                            <h1>Nome do servidor</h1>
-                        </div>
-                        <div class="flex flex-col gap-1 p-4">
-                            <div class="flex mx-2">
-                                <p class="w-full">Status:</p>
-                                <p class="w-full">Online</p>
-                            </div>
-                            <div class="flex mx-2">
-                                <p class="w-full">Location:</p>
-                                <p class="w-full">Europe</p>
-                            </div>
-                            <div class="flex mx-2">
-                                <p class="w-full">Software / Game:</p>
-                                <p class="w-full">Counter-Strike: Global Offensive</p>
-                            </div>
-                            <div class="flex mx-2">
-                                <p class="w-full">Specification:</p>
-                                <p class="w-full">Vanilla Counter Strike</p>
-                            </div>
-                            <div class="flex mx-2">
-                                <p class="w-full">Plan:</p>
-                                <p class="w-full">Basic</p>
-                            </div>
-                            <div class="flex mx-2">
-                                <p class="w-full">Price:</p>
-                                <div class="flex gap-2 w-full">
-                                    <div class="flex flex-col w-full">
-                                        <p>Monthly:</p>
-                                        <p>€ 10.00</p>
+        @if ($servers->count())
+            <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+                @foreach ($servers as $server)
+                    <x-card class="!p-0">
+                        <x-card.content>
+                            <div class="rounded-md size-full">
+                                <div class="px-2 py-4 border-b border-slate-500">
+                                    <h1>{{ $server['name'] }}</h1>
+                                </div>
+                                <div class="flex flex-col gap-1 p-4">
+                                    <ul>
+                                        <li class="flex justify-between">
+                                            <p>Status:</p>
+                                            <div class="size-[20px] rounded-full {{ $server['suspended'] ? 'bg-red-500' : 'bg-emerald-500' }}"></div>
+                                        </li>
+                                        <li class="flex justify-between">
+                                            <p>Location:</p>
+                                            <p>{{ $server['location'] }}</p>
+                                        </li>
+                                        <li class="flex justify-between">
+                                            <p>Node:</p>
+                                            <p>{{ $server['node'] }}</p>
+                                        </li>
+                                        <li class="flex justify-between">
+                                            <p>Software / Game:</p>
+                                            <p>{{ $server['nest'] }}</p>
+                                        </li>
+                                        <li class="flex justify-between">
+                                            <p>Specification:</p>
+                                            <p>{{ $server['egg'] }}</p>
+                                        </li>
+                                        <li class="flex justify-between">
+                                            <p>Plan:</p>
+                                            <p>{{ $server['product']['name'] }}</p>
+                                        </li>
+                                        <li class="flex justify-between">
+                                            <p>Node:</p>
+                                            <p>{{ $server['node'] }}</p>
+                                        </li>
+                                    </ul>
+                                    <div class="flex">
+                                        <p class="w-full">Price:</p>
+                                        <div class="flex w-full gap-2 max-w-[200px]">
+                                            <div class="flex flex-col w-full">
+                                                <p>Monthly:</p>
+                                                <p>€ 10.00</p>
+                                            </div>
+                                            <div class="flex flex-col w-full">
+                                                <p>Yearly:</p>
+                                                <p>€ 100.00</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="flex flex-col w-full">
-                                        <p>Yearly:</p>
-                                        <p>€ 100.00</p>
+                                </div>
+                                <div class="px-2 py-4 border-t border-slate-500">
+                                    <div class="flex justify-center gap-2">
+                                        <x-button size="lg" class="">Manage</x-button>
+                                        <x-button size="lg" class="">Settings</x-button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="border-t border-slate-500 py-4 px-2">
-                            <div class="flex gap-2 justify-center">
-                                <x-button size="lg" class="">Manage</x-button>
-                                <x-button size="lg" class="">Settings</x-button>
-                            </div>
-                        </div>
-                    </div>
-                </x-card.content>
-            </x-card>
-        {{-- @if ($servers->count())
-            <x-card>
-                <x-card.content>
-                    <p>tete</p>
-                </x-card.content>
-            </x-card>
+                        </x-card.content>
+                    </x-card>
+                @endforeach
+            </div>
         @else
             <x-empty>
                 <x-empty.message>You dont have servers.</x-empty.message>
             </x-empty>
-        @endif --}}
+        @endif
     </x-module>
 @endsection

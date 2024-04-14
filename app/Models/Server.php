@@ -17,10 +17,9 @@ class Server extends Model
     protected $fillable = [
         'name',
         'description',
-        'external_id',
         'identifier',
         'suspended',
-        'pterodactyl_id',
+        'pterodactyl_server_id',
         'product_id',
         'user_id',
     ];
