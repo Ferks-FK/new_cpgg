@@ -65,6 +65,18 @@ export default () => ({
 
             window.location.href = data.redirect;
         } catch (error) {
+            if (error.response.status === 400) {
+                this.$dispatch('toast', {
+                    message: error.response.data.message,
+                    type: 'error',
+                    pending: true
+                })
+
+                window.location.href = error.response.data.redirect;
+
+                return
+            }
+
             const errors = error.response.data.errors;
             this.form.errors = {};
             console.error(error)

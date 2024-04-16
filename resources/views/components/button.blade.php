@@ -5,6 +5,7 @@
         'primary' => 'bg-blue-500 hover:bg-blue-600 text-white',
         'secondary' => 'bg-gray-500 hover:bg-gray-600 text-white',
         'danger' => 'bg-red-500 hover:bg-red-600 text-white',
+        'white' => 'bg-zinc-100 hover:bg-gray-200 text-gray-900',
     ],
     'size' => 'md',
     'sizes' => [

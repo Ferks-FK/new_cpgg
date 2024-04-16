@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Contracts\Eloquent\UserRepositoryInterface as EloquentUserContract;
 use App\Contracts\UserRepositoryInterface;
-use Illuminate\Http\Request;
+use App\Http\Requests\Auth\RegisterRequest;
 use Exception;
 
 class RegisterController
@@ -20,14 +20,9 @@ class RegisterController
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request)
+    public function __invoke(RegisterRequest $request)
     {
-        $data = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
+        $data = $request->validated();
 
         $data['username'] = $data['first_name'];
 

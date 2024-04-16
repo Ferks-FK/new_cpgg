@@ -2,22 +2,18 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\Auth\LoginRequest;
 
 class LoginController
 {
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request)
+    public function __invoke(LoginRequest $request)
     {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-            'remember' => 'boolean',
-        ]);
+        $data = $request->validated();
 
-        if (auth()->attempt($request->only('email', 'password'), $request->remember)) {
+        if (auth()->attempt($request->only('email', 'password'), $data['remember'])) {
             return response()->json([
                 'redirect' => route('home'),
             ]);

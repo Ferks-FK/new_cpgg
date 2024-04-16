@@ -23,7 +23,9 @@ class CreateServerController
     {
         $products = $this->productRepositoryInterface->getActives();
         $nests = $this->eggRepositoryInterface->all();
-        $locations = $this->nodeRepositoryInterface->all();
+        $locations = $this->nodeRepositoryInterface->all(
+            includes: ['nodes']
+        );
 
         return view('modules.servers.create', compact('nests', 'locations', 'products'));
     }

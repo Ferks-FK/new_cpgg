@@ -10,7 +10,5 @@ interface ServerRepositoryInterface
 
     public function create(mixed $data, mixed $egg_attributes, array $allocations);
 
-    public function getFreeAllocations(int $nodeId);
-
-    public function getEggAttributes(int $nestId, int $eggId);
+    public function delete(int $id);
 }

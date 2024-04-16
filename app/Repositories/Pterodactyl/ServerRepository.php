@@ -3,6 +3,8 @@
 namespace App\Repositories\Pterodactyl;
 
 use App\Contracts\ServerRepositoryInterface;
+use App\Exceptions\Repositories\Pterodactyl\ServerNotFoundException;
+use App\Exceptions\Repositories\Pterodactyl\ServerCreationFailedException;
 use Exception;
 
 class ServerRepository extends ApiConfigRepository implements ServerRepositoryInterface
@@ -35,7 +37,7 @@ class ServerRepository extends ApiConfigRepository implements ServerRepositoryIn
         }
 
         if ($response->failed()) {
-            throw new Exception('Failed to fetch server.');
+            throw new ServerNotFoundException();
         }
 
         return $response->json()['attributes'];
@@ -75,48 +77,25 @@ class ServerRepository extends ApiConfigRepository implements ServerRepositoryIn
         }
 
         if ($response->failed()) {
-            throw new Exception('Failed to create server.');
+            throw new ServerCreationFailedException();
         }
 
         return $response->json()['attributes'];
     }
 
-    public function getFreeAllocations(int $nodeId)
+    public function delete(int $id)
     {
         try {
-            $response = $this->application()->get("nodes/{$nodeId}/allocations");
+            $response = $this->application()->delete("servers/{$id}");
         } catch (Exception $exception) {
             throw new Exception($exception->getMessage());
         }
 
         if ($response->failed()) {
-            throw new Exception('Failed to fetch allocations.');
+            throw new ServerNotFoundException('Failed to delete server.');
         }
 
-        $freeAllocations = [];
-
-        foreach ($response->json()['data'] as $allocation) {
-            if (!$allocation['attributes']['assigned']) {
-                $freeAllocations[] = $allocation['attributes']['id'];
-            }
-        }
-
-        return $freeAllocations;
-    }
-
-    public function getEggAttributes(int $nestId, int $eggId)
-    {
-        try {
-            $response = $this->application()->get("nests/{$nestId}/eggs/{$eggId}?include=variables");
-        } catch (Exception $exception) {
-            throw new Exception($exception->getMessage());
-        }
-
-        if ($response->failed()) {
-            throw new Exception('Failed to fetch egg attributes.');
-        }
-
-        return $response->json()['attributes'];
+        return true;
     }
 
     private function getEnvironmentVariables(mixed $egg_attributes)
@@ -134,12 +113,7 @@ class ServerRepository extends ApiConfigRepository implements ServerRepositoryIn
     {
         return match ($endpoint) {
             'servers' => ['allocations', 'user', 'subusers', 'nest', 'egg', 'variables', 'location', 'node', 'databases'],
-            'servers-databases' => ['password', 'host'],
-            'nodes' => ['location', 'allocations'],
-            'nests' => ['eggs'],
-            'eggs' => ['nest', 'variables'],
-            'locations' => ['nodes'],
-            'allocations' => ['node'],
+            'server-databases' => ['password', 'host'],
             default => [],
         };
     }

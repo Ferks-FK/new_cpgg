@@ -12,7 +12,7 @@ class GetUsersController
      */
     public function __invoke(Request $request)
     {
-        $users = User::all();
+        $users = User::with('servers')->get();
 
         return view('modules.admin.users.index', compact('users'));
     }

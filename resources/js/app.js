@@ -4,6 +4,9 @@ import Alpine from 'alpinejs';
 import login from './auth/login';
 import register from './auth/register';
 
+// Admin Imports
+import adminUsers from './modules/admin/users';
+
 // Client Imports
 import servers from './modules/servers';
 
@@ -25,7 +28,10 @@ Alpine.store("layout", layout);
 Alpine.data('login', login);
 Alpine.data('register', register);
 
-// CLient Modules
+// Client Modules
 Alpine.data('servers', servers);
+
+// Admin Modules
+Alpine.data('adminUsers', adminUsers);
 
 Alpine.start();

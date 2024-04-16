@@ -5,14 +5,14 @@
         <x-breadcrumb.item icon="icon.home" href="#">Dashboard</x-breadcrumb.item>
         <x-breadcrumb.item href="#">Users</x-breadcrumb.item>
     </x-breadcrumb>
-    <x-module>
+    <x-module x-data="adminUsers()" x-init="setUsersData({{ json_encode($users) }})">
         <x-module.header>
             <x-module.title>Users</x-module.title>
             <x-module.options>
                 <x-module.create href="#"/>
             </x-module.options>
         </x-module.header>
-        @if ($users->count())
+        <template x-if="users.length">
             <x-card>
                 <x-card.content>
                     <x-table>
@@ -29,15 +29,29 @@
                             </x-table.tr>
                         </x-table.thead>
                         <x-table.tbody>
-                            @foreach ($users as $user)
+                            <template x-for="user in users" :key="user.id">
                                 <x-table.tr>
-                                    <x-table.td>{{ $user->id }}</x-table.td>
-                                    <x-table.td>{{ $user->first_name . ' ' . $user->last_name }}</x-table.td>
-                                    <x-table.td>{{ $user->email }}</x-table.td>
-                                    <x-table.td>{{ $user->credits }}</x-table.td>
-                                    <x-table.td>{{ $user->servers->count() }}</x-table.td>
-                                    <x-table.td>{{ $user->email_verified_at }}</x-table.td>
-                                    <x-table.td>{{ $user->created_at }}</x-table.td>
+                                    <x-table.td>
+                                        <span x-text="user.id"></span>
+                                    </x-table.td>
+                                    <x-table.td>
+                                        <span x-text="user.first_name + ' ' + user.last_name"></span>
+                                    </x-table.td>
+                                    <x-table.td>
+                                        <span x-text="user.email"></span>
+                                    </x-table.td>
+                                    <x-table.td>
+                                        <span x-text="user.credits"></span>
+                                    </x-table.td>
+                                    <x-table.td>
+                                        <span x-text="user.servers.length"></span>
+                                    </x-table.td>
+                                    <x-table.td>
+                                        <span x-text="user.email_verified_at"></span>
+                                    </x-table.td>
+                                    <x-table.td>
+                                        <span x-text="user.created_at"></span>
+                                    </x-table.td>
                                     <x-table.td class="flex justify-end">
                                         <x-dropdown>
                                             <x-dropdown.trigger>
@@ -46,20 +60,42 @@
                                             <x-dropdown.menu>
                                                 <x-dropdown.item href="#">Edit</x-dropdown.item>
                                                 <x-dropdown.divider/>
-                                                <x-dropdown.item href="#" background="danger">Delete</x-dropdown.item>
+                                                <x-dropdown.item href="#" background="danger" x-on:click="handleConfirm()">Delete</x-dropdown.item>
                                             </x-dropdown.menu>
                                         </x-dropdown>
                                     </x-table.td>
                                 </x-table.tr>
-                            @endforeach
+                            </template>
                         </x-table.tbody>
                     </x-table>
                 </x-card.content>
             </x-card>
-        @else
+        </template>
+        <template x-if="!users.length">
             <x-empty>
                 <x-empty.message>No users found.</x-empty.message>
             </x-empty>
-        @endif
+        </template>
+        <x-confirm>
+            <x-confirm.content>
+                <x-confirm.header>
+                    Delete User
+                </x-confirm.header>
+                <x-confirm.body>
+                    <p>Are you sure you want to delete <span class="font-bold" x-text="confirm.name"></span>?</p>
+                    <p class="text-sm font-bold">All servers of this user will be deleted!</p>
+                </x-confirm.body>
+                <x-confirm.footer>
+                    <x-button x-on:click="handleDelete()" variant="danger" class="w-full md:w-auto">
+                        <span x-show="confirm.loading">
+                            <x-icon.loading/>
+                        </span>
+                        <span x-show="!confirm.loading">
+                            Delete
+                        </span>
+                    </x-button>
+                </x-confirm.footer>
+            </x-confirm.content>
+        </x-confirm>
     </x-module>
 @endsection
