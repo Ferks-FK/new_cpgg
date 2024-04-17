@@ -19,7 +19,7 @@ class GetServersController
      */
     public function __invoke(Request $request)
     {
-        $servers = $this->userRepositoryInterface->find(auth()->id())->servers->map(function ($server) {
+        $servers = $this->userRepositoryInterface->findById(auth()->id())->servers->map(function ($server) {
             try {
                 $server->load('product');
 

@@ -28,6 +28,15 @@ class User extends Authenticatable
     ];
 
     /**
+     * The attributes that should be appended to the model's array form.
+     *
+     * @var array<int, string>
+     */
+    protected $appends = [
+        'username',
+    ];
+
+    /**
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
@@ -50,6 +59,14 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Get the user's full name.
+     */
+    public function getUsernameAttribute(): string
+    {
+        return $this->first_name . ' ' . $this->last_name;
     }
 
     /**

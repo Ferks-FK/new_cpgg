@@ -9,7 +9,7 @@
         <x-module.header>
             <x-module.title>Users</x-module.title>
             <x-module.options>
-                <x-module.create href="#"/>
+                <x-module.create href="{{ route('admin.users.create') }}"/>
             </x-module.options>
         </x-module.header>
         <template x-if="users.length">
@@ -35,7 +35,7 @@
                                         <span x-text="user.id"></span>
                                     </x-table.td>
                                     <x-table.td>
-                                        <span x-text="user.first_name + ' ' + user.last_name"></span>
+                                        <span x-text="user.username"></span>
                                     </x-table.td>
                                     <x-table.td>
                                         <span x-text="user.email"></span>
@@ -58,7 +58,7 @@
                                                 <x-icon.more-vertical/>
                                             </x-dropdown.trigger>
                                             <x-dropdown.menu>
-                                                <x-dropdown.item href="#">Edit</x-dropdown.item>
+                                                <x-dropdown.item x-bind:href="`/admin/users/edit/${user.id}`">Edit</x-dropdown.item>
                                                 <x-dropdown.divider/>
                                                 <x-dropdown.item href="#" background="danger" x-on:click="handleConfirm()">Delete</x-dropdown.item>
                                             </x-dropdown.menu>

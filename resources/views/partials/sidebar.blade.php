@@ -12,9 +12,9 @@
             <x-navbar.item route="{{ route('servers') }}" label="Servers" icon="icon.servers" active="{{ request()->is(['servers']) }}"/>
         </x-navbar.group>
         <x-navbar.group title="Administration">
-            <x-navbar.item route="{{ route('admin.users') }}" label="Users" icon="icon.users" active="{{ request()->is(['admin/users']) }}"/>
-            <x-navbar.item route="{{ route('admin.servers') }}" label="Servers" icon="icon.servers" active="{{ request()->is(['admin/servers']) }}"/>
-            <x-navbar.item route="{{ route('admin.products') }}" label="Products" icon="icon.sliders" active="{{ request()->is(['admin/products']) }}"/>
+            <x-navbar.item route="{{ route('admin.users') }}" label="Users" icon="icon.users" active="{{ request()->is(['admin/users', 'admin/users/*']) }}"/>
+            <x-navbar.item route="{{ route('admin.servers') }}" label="Servers" icon="icon.servers" active="{{ request()->is(['admin/servers', 'admin/servers/*']) }}"/>
+            <x-navbar.item route="{{ route('admin.products') }}" label="Products" icon="icon.sliders" active="{{ request()->is(['admin/products', 'admin/products/*']) }}"/>
         </x-navbar.group>
     </x-navbar>
 </div>

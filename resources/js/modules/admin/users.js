@@ -5,22 +5,24 @@ export default () => ({
 
     form: {
         data: {
-            email: '',
+            first_name: '',
+            last_name: '',
             username: '',
+            credits: 250,
+            server_limit: 1,
+            email: '',
             password: '',
             password_confirmation: '',
-            root_admin: false,
-            language: 'en',
-            permissions: []
         },
         errors: {
-            email: null,
+            first_name: null,
+            last_name: null,
             username: null,
+            credits: null,
+            server_limit: null,
+            email: null,
             password: null,
             password_confirmation: null,
-            root_admin: null,
-            language: null,
-            permissions: null
         },
         loading: false
     },
@@ -36,6 +38,56 @@ export default () => ({
         this.confirm.name = this.user.first_name + ' ' + this.user.last_name
 
         this.$dispatch("confirm");
+    },
+
+    async handleCreate() {
+        this.form.loading = true
+
+        try {
+            const { data } = await axios.post('/admin/users/store', this.form.data)
+
+            this.$dispatch('toast', {
+                message: data.message,
+                type: 'success'
+            });
+
+            this.form.errors = {};
+        } catch (error) {
+            const errors = error.response.data.errors;
+            this.form.errors = {};
+            console.error(error)
+
+            for (const field in errors) {
+                this.form.errors[field] = errors[field][0];
+            }
+        } finally {
+            this.form.loading = false
+        }
+    },
+
+    async handleUpdate() {
+        this.form.loading = true
+
+        try {
+            const { data } = await axios.patch(`/admin/users/update/${this.form.data.id}`, this.form.data)
+
+            this.$dispatch('toast', {
+                message: data.message,
+                type: 'success'
+            });
+
+            this.form.errors = {};
+        } catch (error) {
+            const errors = error.response.data.errors;
+            this.form.errors = {};
+            console.error(error)
+
+            for (const field in errors) {
+                this.form.errors[field] = errors[field][0];
+            }
+        } finally {
+            this.form.loading = false
+        }
     },
 
     async handleDelete() {
@@ -65,7 +117,10 @@ export default () => ({
     },
 
     setUsersData(users) {
-        console.log(users)
         this.users = users;
-    }
+    },
+
+    setUserData(user) {
+        this.form.data = user;
+    },
 })

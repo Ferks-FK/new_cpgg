@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers\Admin\Users;
 
+use App\Contracts\Eloquent\UserRepositoryInterface as EloquentUserRepositoryInterface;
+use App\Contracts\UserRepositoryInterface;
 use App\Contracts\ServerRepositoryInterface;
 use App\Exceptions\Repositories\Pterodactyl\ServerNotFoundException;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class DeleteUserController
 {
     public function __construct(
-        protected ServerRepositoryInterface $serverRepositoryInterface)
+        protected EloquentUserRepositoryInterface $eloquentUserRepositoryInterface,
+        protected ServerRepositoryInterface $serverRepositoryInterface,
+        protected UserRepositoryInterface $userRepositoryInterface)
     {}
 
     /**
@@ -18,7 +21,7 @@ class DeleteUserController
      */
     public function __invoke(Request $request, int $id)
     {
-        $user = User::findOrFail($id);
+        $user = $this->eloquentUserRepositoryInterface->findById($id);
 
         if ($user->id === auth()->id()) {
             return response()->json([
@@ -32,6 +35,8 @@ class DeleteUserController
 
                 $server->delete();
             }
+
+            $this->userRepositoryInterface->delete($user->pterodactyl_id);
         } catch (ServerNotFoundException $e) {
             // do nothing.
         }

@@ -34,11 +34,31 @@ class UserRepository extends ApiConfigRepository implements UserRepositoryInterf
 
     public function update(array $data, int $id)
     {
-        //
+        try {
+            $response = $this->application()->patch("users/$id", $data);
+        } catch (Exception $exception) {
+            throw new Exception($exception->getMessage());
+        }
+
+        if ($response->failed()) {
+            throw new Exception('Failed to update user.');
+        }
+
+        return $response->json();
     }
 
     public function delete(int $id)
     {
-        //
+        try {
+            $response = $this->application()->delete("users/$id");
+        } catch (Exception $exception) {
+            throw new Exception($exception->getMessage());
+        }
+
+        if ($response->failed()) {
+            throw new Exception('Failed to delete user.');
+        }
+
+        return $response->json();
     }
 }

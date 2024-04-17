@@ -14,7 +14,7 @@
 <body x-cloak x-data class="text-white bg-gray-700">
     @include('partials.header')
     @include('partials.sidebar')
-    <div x-bind:class="$store.layout.sidebar.open ? 'ml-[250px]' : 'ml-0 md:ml-[60px]'" class="flex flex-col mt-[60px] pb-5">
+    <div x-bind:class="$store.layout.sidebar.open ? 'ml-[250px]' : 'ml-0 md:ml-[70px]'" class="flex flex-col mt-[60px] pb-5">
         @yield('content')
     </div>
     <x-toast />
