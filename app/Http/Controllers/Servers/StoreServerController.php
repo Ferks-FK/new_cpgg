@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Servers;
 
+use App\Contracts\EggRepositoryInterface;
 use App\Contracts\ServerRepositoryInterface;
 use App\Contracts\NodeRepositoryInterface;
 use App\Contracts\Eloquent\ServerRepositoryInterface as EloquentServerRepositoryInterface; 
@@ -13,6 +14,7 @@ class StoreServerController
     public function __construct(
         protected EloquentServerRepositoryInterface $eloquentServerRepositoryInterface,
         protected NodeRepositoryInterface $nodeRepositoryInterface,
+        protected EggRepositoryInterface $eggRepositoryInterface,
         protected ServerRepositoryInterface $serverRepositoryInterface,
         protected ProductRepositoryInterface $productRepositoryInterface)
     {}
@@ -40,11 +42,16 @@ class StoreServerController
                 'user_id' => auth()->id(),
             ]);
 
-            $egg_attributes = $this->nodeRepositoryInterface->getEggAttributes(
-                $data['nest_id'],
-                $data['egg_id'],
-                includes: ['variables']
-            );
+            $egg_attributes = $this->eggRepositoryInterface->getEggAttributes($data['egg_id']);
+
+            if (empty($egg_attributes)) {
+                $server->delete();
+
+                return response()->json([
+                    'message' => 'Failed to fetch egg attributes.',
+                    'redirect' => route('servers')
+                ], 400);
+            }
             
             $pterodactyl_server = $this->serverRepositoryInterface->create($server, $egg_attributes, $allocations);
 

@@ -22,11 +22,9 @@ class CreateServerController
     public function __invoke(Request $request)
     {
         $products = $this->productRepositoryInterface->getActives();
-        $nests = $this->eggRepositoryInterface->all();
-        $locations = $this->nodeRepositoryInterface->all(
-            includes: ['nodes']
-        );
+        $eggs = $this->eggRepositoryInterface->all();
+        $nodes = $this->nodeRepositoryInterface->all();
 
-        return view('modules.servers.create', compact('nests', 'locations', 'products'));
+        return view('modules.servers.create', compact('eggs', 'nodes', 'products'));
     }
 }

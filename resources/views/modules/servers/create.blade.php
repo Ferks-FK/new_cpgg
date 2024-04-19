@@ -6,7 +6,7 @@
         <x-breadcrumb.item href="{{ route('servers') }}">Servers</x-breadcrumb.item>
         <x-breadcrumb.item href="#">Create Server</x-breadcrumb.item>
     </x-breadcrumb>
-    <x-module x-data="servers()" x-init="setNestsData({{ json_encode($nests) }}); setLocationsData({{ json_encode($locations) }}); setProductsData({{ json_encode($products) }})">
+    <x-module x-data="servers()" x-init="setEggsData({{ json_encode($eggs) }}); setNodesData({{ json_encode($nodes) }}); setProductsData({{ json_encode($products) }})">
         <x-module.header>
             <x-module.title>Create Server</x-module.title>
         </x-module.header>
@@ -22,46 +22,28 @@
                             <x-form.input x-model="form.data.name" id="name"/>
                             <x-form.error x-show="form.errors.name" x-text="form.errors.name"/>
                         </x-form.group>
-                        <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
-                            <x-form.group>
-                                <x-form.label for="nest">Software / Game</x-form.label>
-                                <x-select x-model="form.data.nest_id" x-on:change="getEggsByNestId($event.target.value)" id="nest">
-                                    <option value="">Select...</option>
-                                    <template x-for="nest in nests" :key="nest.id">
-                                        <option x-bind:value="nest.id" x-text="nest.name"></option>
-                                    </template>
-                                </x-select>
-                                <x-form.error x-show="form.errors.nest_id" x-text="form.errors.nest_id"/>
-                            </x-form.group>
-                            <x-form.group>
-                                <x-form.label for="egg">Software / Game Type</x-form.label>
-                                <x-select
-                                    x-model="form.data.egg_id"
-                                    x-bind:class="eggs.length ? 'cursor-pointer' : 'cursor-not-allowed'"
-                                    x-bind:disabled="!eggs.length"
-                                    x-ref="egg"
-                                    id="egg"
-                                >
-                                    <option value="">Select...</option>
-                                    <template x-for="egg in eggs" :key="egg.id">
-                                        <option x-bind:value="egg.id" x-text="egg.name"></option>
-                                    </template>
-                                </x-select>
-                                <x-form.error x-show="form.errors.egg_id" x-text="form.errors.egg_id"/>
-                            </x-form.group>
-                        </div>
+                        <x-form.group>
+                            <x-form.label for="egg">Software / Game</x-form.label>
+                            <x-select x-model="form.data.egg_id" id="egg">
+                                <option value="">Select...</option>
+                                <template x-for="egg in eggs" :key="egg.id">
+                                    <option x-bind:value="egg.id" x-text="egg.name"></option>
+                                </template>
+                            </x-select>
+                            <x-form.error x-show="form.errors.egg_id" x-text="form.errors.egg_id"/>
+                        </x-form.group>
                         <x-form.group>
                             <x-form.label for="node">Node</x-form.label>
                             <x-select
-                                x-bind:class="form.data.nest_id && form.data.egg_id ? 'cursor-pointer' : 'cursor-not-allowed'"
-                                x-bind:disabled="!form.data.nest_id || !form.data.egg_id"
+                                x-bind:class="form.data.egg_id && form.data.egg_id ? 'cursor-pointer' : 'cursor-not-allowed'"
+                                x-bind:disabled="!form.data.egg_id || !form.data.egg_id"
                                 x-model="form.data.node_id"
                                 x-on:change="CheckResourcesByNodeId()"
                                 id="node"
                             >
                                 <option value="">Select...</option>
-                                <template x-for="location in locations" :key="location.id">
-                                    <option x-bind:value="location.node_data.id" x-text="location.name"></option>
+                                <template x-for="node in nodes" :key="node.id">
+                                    <option x-bind:value="node.id" x-text="node.name"></option>
                                 </template>
                             </x-select>
                             <x-form.error x-show="form.errors.node_id" x-text="form.errors.node_id"/>

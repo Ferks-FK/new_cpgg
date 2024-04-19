@@ -4,7 +4,7 @@ namespace App\Contracts;
 
 interface EggRepositoryInterface
 {
-    public function all();
+    public function all(array $includes = []);
 
-    public function getEggs(?int $nestId = null);
+    public function getEggAttributes(int $egg_id, array $includes = []);
 }

@@ -7,25 +7,12 @@ use Exception;
 
 class EggRepository extends ApiConfigRepository implements EggRepositoryInterface
 {
-    public function all()
+    public function all(array $includes = ['eggs'])
     {
+        $valid_includes = array_intersect($includes, $this->validIncludes('nests'));
+
         try {
-            $response = $this->application()->get('nests');
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage());
-        }
-
-        if ($response->failed()) {
-            throw new Exception('Failed to fetch nests.');
-        }
-
-        return $response->json()['data'];
-    }
-
-    public function getEggs(?int $nestId = null)
-    {
-        try {
-            $response = $this->application()->get("nests/$nestId/eggs");
+            $response = $this->application()->get("nests?include=" . implode(',', $valid_includes));
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -34,6 +21,52 @@ class EggRepository extends ApiConfigRepository implements EggRepositoryInterfac
             throw new Exception('Failed to fetch eggs.');
         }
 
-        return $response->json()['data'];
+        $eggs = [];
+
+        foreach ($response->json()['data'] as $nest) {
+            foreach ($nest['attributes']['relationships']['eggs']['data'] as $egg) {
+                $eggs[] = $egg;
+            }
+        }
+
+        return $eggs;
+    }
+
+    public function getEggAttributes(int $egg_id, array $includes = ['eggs.variables'])
+    {
+        $valid_includes = array_intersect($includes, $this->validIncludes('nests'));
+
+        try {
+            $response = $this->application()->get("nests?include=" . implode(',', $valid_includes));
+        } catch (Exception $exception) {
+            throw new Exception($exception->getMessage());
+        }
+
+        if ($response->failed()) {
+            throw new Exception('Failed to fetch egg attributes.');
+        }
+
+        $egg_attributes = [];
+
+        foreach ($response->json()['data'] as $nest) {
+            foreach ($nest['attributes']['relationships']['eggs']['data'] as $egg) {
+                if ($egg['attributes']['id'] == $egg_id) {
+                    $egg_attributes[] = $egg['attributes'];
+
+                    break;
+                }
+            }
+        }
+
+        return empty($egg_attributes) ? $egg_attributes : $egg_attributes[0];
+    }
+
+    private function validIncludes(string $endpoint)
+    {
+        return match ($endpoint) {
+            'nests' => ['eggs', 'eggs.variables', 'servers'],
+            'nest-eggs' => ['nest', 'servers', 'config', 'script', 'variables'],
+            default => [],
+        };
     }
 }

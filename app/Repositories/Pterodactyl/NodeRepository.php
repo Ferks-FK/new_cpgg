@@ -9,16 +9,16 @@ class NodeRepository extends ApiConfigRepository implements NodeRepositoryInterf
 {
     public function all(array $includes = [])
     {
-        $valid_includes = array_intersect($includes, $this->validIncludes('locations'));
+        $valid_includes = array_intersect($includes, $this->validIncludes('nodes'));
 
         try {
-            $response = $this->application()->get("locations?include=" . implode(',', $valid_includes));
+            $response = $this->application()->get("nodes?include=" . implode(',', $valid_includes));
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
 
         if ($response->failed()) {
-            throw new Exception('Failed to fetch locations.');
+            throw new Exception('Failed to fetch nodes.');
         }
 
         return $response->json()['data'];
@@ -47,31 +47,11 @@ class NodeRepository extends ApiConfigRepository implements NodeRepositoryInterf
         return $freeAllocations;
     }
 
-    public function getEggAttributes(int $nestId, int $eggId, array $includes = [])
-    {
-        $valid_includes = array_intersect($includes, $this->validIncludes('nest-eggs'));
-
-        try {
-            $response = $this->application()->get("nests/{$nestId}/eggs/{$eggId}?include=" . implode(',', $valid_includes));
-        } catch (Exception $exception) {
-            throw new Exception($exception->getMessage());
-        }
-
-        if ($response->failed()) {
-            throw new Exception('Failed to fetch egg attributes.');
-        }
-
-        return $response->json()['attributes'];
-    }
-
     private function validIncludes(string $endpoint)
     {
         return match ($endpoint) {
             'nodes' => ['allocations', 'location', 'servers'],
             'node-allocations' => ['node', 'server'],
-            'nests' => ['eggs', 'servers'],
-            'nest-eggs' => ['nest', 'servers', 'config', 'script', 'variables'],
-            'locations' => ['nodes', 'servers'],
             default => [],
         };
     }

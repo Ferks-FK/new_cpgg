@@ -19,6 +19,14 @@ return [
     ],
 
     'pelican' => [
-        //
+        'url' => env('PELICAN_API_URL'),
+        'token' => env('PELICAN_API_TOKEN'),
+
+        'bindings' => [
+            App\Contracts\ServerRepositoryInterface::class => App\Repositories\Pelican\ServerRepository::class,
+            // App\Contracts\NodeRepositoryInterface::class => App\Repositories\Pelican\NodeRepository::class,
+            // App\Contracts\EggRepositoryInterface::class => App\Repositories\Pelican\EggRepository::class,
+            // App\Contracts\UserRepositoryInterface::class => App\Repositories\Pelican\UserRepository::class,
+        ]
     ],
 ];

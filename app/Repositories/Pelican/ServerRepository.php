@@ -22,17 +22,12 @@ class ServerRepository extends ApiConfigRepository implements ServerRepositoryIn
         return $response->json()['data'];
     }
 
-    public function find(int $id)
+    public function findById(int $id, array $includes = [])
     {
-
+        
     }
 
-    public function create(array $data)
-    {
-
-    }
-
-    public function update(array $data, int $id)
+    public function create(mixed $data, mixed $egg_attributes, array $allocations)
     {
 
     }
