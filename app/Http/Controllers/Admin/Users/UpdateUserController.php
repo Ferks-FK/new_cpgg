@@ -36,7 +36,8 @@ class UpdateUserController
         $this->eloquentUserRepositoryInterface->update($data, $id);
 
         return response()->json([
-            'message' => 'User updated successfully'
+            'message' => 'User updated successfully',
+            'redirect' => route('admin.users')
         ]);
     }
 }

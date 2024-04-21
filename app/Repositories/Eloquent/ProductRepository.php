@@ -14,8 +14,12 @@ class ProductRepository implements ProductRepositoryInterface
         $this->query = Product::query();
     }
 
-    public function getAll()
+    public function getAll(array $relations = [])
     {
+        $valid_relations = array_intersect($relations, $this->validRelations('server'));
+
+        $this->query->with($valid_relations);
+
         return $this->query->get();
     }
 
@@ -24,8 +28,39 @@ class ProductRepository implements ProductRepositoryInterface
         return $this->query->where('active', true)->get();
     }
 
-    public function findById(int $id)
+    public function findById(int $id, array $relations = [])
     {
+        $valid_relations = array_intersect($relations, $this->validRelations('server'));
+
+        $this->query->with($valid_relations);
+
         return $this->query->find($id);
+    }
+
+    public function create(array $data)
+    {
+        return $this->query->create($data);
+    }
+
+    public function update(int $id, array $data)
+    {
+        $model = $this->findById($id);
+
+        $model->update($data);
+        
+        return $model->fresh();
+    }
+
+    public function delete(int $id)
+    {
+        return $this->query->find($id)->delete();
+    }
+
+    private function validRelations(string $relation)
+    {
+        return match ($relation) {
+            'product' => ['servers'],
+            default => [],
+        };
     }
 }

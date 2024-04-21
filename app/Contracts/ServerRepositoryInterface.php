@@ -10,5 +10,13 @@ interface ServerRepositoryInterface
 
     public function create(mixed $data, mixed $egg_attributes, array $allocations);
 
+    public function updateDetails(int $id, mixed $data);
+
+    public function updateBuild(int $id, mixed $data);
+
+    public function suspend(int $id);
+
+    public function unsuspend(int $id);
+
     public function delete(int $id);
 }

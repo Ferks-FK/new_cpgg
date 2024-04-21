@@ -36,7 +36,8 @@ class StoreUserController
         $this->eloquentUserRepositoryInterface->create($data);
 
         return response()->json([
-            'message' => 'User created successfully'
+            'message' => 'User created successfully',
+            'redirect' => route('admin.users')
         ]);
     }
 }

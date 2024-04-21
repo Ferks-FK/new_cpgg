@@ -83,6 +83,68 @@ class ServerRepository extends ApiConfigRepository implements ServerRepositoryIn
         return $response->json()['attributes'];
     }
 
+    public function updateDetails(int $id, mixed $data)
+    {
+        try {
+            $response = $this->application()->patch("servers/{$id}/details", $data);
+        } catch (Exception $exception) {
+            throw new Exception($exception->getMessage());
+        }
+
+        if ($response->failed()) {
+            throw new Exception('Failed to update server.');
+        }
+
+        return $response->json()['attributes'];
+    }
+
+    public function updateBuild(int $id, mixed $data)
+    {
+        logger($data);
+
+        try {
+            $response = $this->application()->patch("servers/{$id}/build", $data);
+        } catch (Exception $exception) {
+            throw new Exception($exception->getMessage());
+        }
+
+        if ($response->failed()) {
+            throw new Exception('Failed to update server build.');
+        }
+
+        return $response->json()['attributes'];
+    }
+
+    public function suspend(int $id)
+    {
+        try {
+            $response = $this->application()->post("servers/{$id}/suspend");
+        } catch (Exception $exception) {
+            throw new Exception($exception->getMessage());
+        }
+
+        if ($response->failed()) {
+            throw new ServerNotFoundException('Failed to suspend server.');
+        }
+
+        return true;
+    }
+
+    public function unsuspend(int $id)
+    {
+        try {
+            $response = $this->application()->post("servers/{$id}/unsuspend");
+        } catch (Exception $exception) {
+            throw new Exception($exception->getMessage());
+        }
+
+        if ($response->failed()) {
+            throw new ServerNotFoundException('Failed to unsuspend server.');
+        }
+
+        return true;
+    }
+
     public function delete(int $id)
     {
         try {

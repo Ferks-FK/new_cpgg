@@ -6,6 +6,8 @@ import register from './auth/register';
 
 // Admin Imports
 import adminUsers from './modules/admin/users';
+import adminServers from './modules/admin/servers';
+import products from './modules/admin/products';
 
 // Client Imports
 import servers from './modules/servers';
@@ -33,5 +35,7 @@ Alpine.data('servers', servers);
 
 // Admin Modules
 Alpine.data('adminUsers', adminUsers);
+Alpine.data('adminServers', adminServers);
+Alpine.data('products', products);
 
 Alpine.start();

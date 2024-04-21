@@ -30,8 +30,28 @@ class Product extends Model
         'allocations',
         'minimum_credits',
         'active',
+        'eggs',
+        'nodes'
     ];
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected function casts()
+    {
+        return [
+            'eggs' => 'array',
+            'nodes' => 'array',
+        ];
+    }
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
     public static function boot()
     {
         parent::boot();
@@ -39,5 +59,13 @@ class Product extends Model
         static::creating(function (Product $product) {
             $product->slug = Str::random();
         });
+    }
+
+    /**
+     * Get the product's servers.
+     */
+    public function servers()
+    {
+        return $this->hasMany(Server::class);
     }
 }

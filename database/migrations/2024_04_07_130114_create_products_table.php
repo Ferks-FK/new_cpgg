@@ -27,6 +27,8 @@ return new class extends Migration
             $table->integer('allocations');
             $table->float('minimum_credits')->default(-1);
             $table->boolean('active')->default(true);
+            $table->json('eggs')->default('[]');
+            $table->json('nodes')->default('[]');
             $table->timestamps();
         });
     }

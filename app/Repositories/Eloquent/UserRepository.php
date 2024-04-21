@@ -16,7 +16,7 @@ class UserRepository implements UserRepositoryInterface
 
     public function all()
     {
-        //
+        return $this->query->get();
     }
 
     public function findById(int $id)

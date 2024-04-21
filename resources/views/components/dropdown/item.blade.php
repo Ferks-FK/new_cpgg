@@ -2,6 +2,8 @@
     'background' => 'default',
     'backgrounds' => [
         'default' => 'hover:bg-slate-600',
+        'success' => 'hover:bg-emerald-500 text-white',
+        'warning' => 'hover:bg-yellow-500 text-white',
         'danger' => 'hover:bg-red-500 text-white',
     ]
 ])

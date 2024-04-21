@@ -2,29 +2,23 @@
 
 namespace App\Http\Controllers\Admin\Servers;
 
-use App\Repositories\Pterodactyl\ServerRepository;
-use App\Models\Server;
+use App\Contracts\Eloquent\ServerRepositoryInterface;
 use Illuminate\Http\Request;
 
 class GetServersController
 {
-    protected $serverRepository;
-
-    public function __construct(ServerRepository $serverRepository)
-    {
-        $this->serverRepository = $serverRepository;
-    }
+    public function __construct(
+        protected ServerRepositoryInterface $serverRepositoryInterface)
+    {}
 
     /**
      * Handle the incoming request.
      */
     public function __invoke(Request $request)
     {
-        // $servers = $this->serverRepository->all(
-        //     includes: ['user']
-        // );
-
-        $servers = Server::with(['product', 'user'])->get();
+        $servers = $this->serverRepositoryInterface->all(
+            relations: ['product', 'user']
+        );
 
         return view('modules.admin.servers.index', compact('servers'));
     }

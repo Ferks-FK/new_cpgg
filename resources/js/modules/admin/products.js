@@ -1,28 +1,41 @@
-import axios from '../../services/axios';
+import axios from '../../services/axios'
 
 export default () => ({
-    users: [],
+    products: [],
+    nodes: [],
+    eggs: [],
 
     form: {
         data: {
-            first_name: '',
-            last_name: '',
-            username: '',
-            credits: 250,
-            server_limit: 1,
-            email: '',
-            password: '',
-            password_confirmation: '',
+            name: '',
+            description: '',
+            price: '',
+            memory: '',
+            disk: 1024,
+            cpu: '',
+            swap: 0,
+            io: 500,
+            databases: 1,
+            backups: 1,
+            allocations: 1,
+            minimum_credits: 50,
+            active: true,
+            nodes: [],
+            eggs: []
         },
         errors: {
-            first_name: null,
-            last_name: null,
-            username: null,
-            credits: null,
-            server_limit: null,
-            email: null,
-            password: null,
-            password_confirmation: null,
+            name: null,
+            description: null,
+            price: null,
+            memory: null,
+            disk: null,
+            cpu: null,
+            swap: null,
+            io: null,
+            databases: null,
+            backups: null,
+            allocations: null,
+            minimum_credits: null,
         },
         loading: false
     },
@@ -33,19 +46,19 @@ export default () => ({
         loading: false
     },
 
-    handleConfirm() {
-        this.confirm.id = this.user.id
-        this.confirm.name = this.user.first_name + ' ' + this.user.last_name
+    handleConfirm(confirm) {
+        this.confirm.id = this.form.data.id
+        this.confirm.name = this.form.data.name
 
-        this.$dispatch("confirm");
+        this.$dispatch("confirm", confirm);
     },
 
-    async handleCreate() {
+    async handleUpdate() {
         this.form.loading = true
 
         try {
-            const { data } = await axios.post('/admin/users/store', this.form.data)
-
+            const { data } = await axios.patch(`/admin/products/update/${this.form.data.id}`, this.form.data)
+            
             this.$dispatch('toast', {
                 message: data.message,
                 type: 'success',
@@ -66,11 +79,11 @@ export default () => ({
         }
     },
 
-    async handleUpdate() {
+    async handleCreate() {
         this.form.loading = true
 
         try {
-            const { data } = await axios.patch(`/admin/users/update/${this.form.data.id}`, this.form.data)
+            const { data } = await axios.post('/admin/products/store', this.form.data)
 
             this.$dispatch('toast', {
                 message: data.message,
@@ -96,9 +109,9 @@ export default () => ({
         this.confirm.loading = true
 
         try {
-            const { data } = await axios.delete('/admin/users/' + this.confirm.id)
+            const { data } = await axios.delete(`/admin/products/${this.confirm.id}`)
 
-            this.users = this.users.filter(user => user.id !== this.confirm.id)
+            this.products = this.products.filter(product => product.id !== this.confirm.id)
 
             this.$dispatch('toast', {
                 message: data.message,
@@ -118,11 +131,19 @@ export default () => ({
         }
     },
 
-    setUsersData(users) {
-        this.users = users;
+    setProductsData(products) {
+        this.products = products
     },
 
-    setUserData(user) {
-        this.form.data = user;
+    setProductData(product) {
+        this.form.data = Object.assign({}, this.form.data, product)
     },
+
+    setNodesData(nodes) {
+        this.nodes = nodes
+    },
+
+    setEggsData(eggs) {
+        this.eggs = eggs
+    }
 })

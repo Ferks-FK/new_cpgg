@@ -1,3 +1,3 @@
-<footer class="flex justify-end">
+<footer class="flex md:justify-end">
     {{ $slot }}
 </footer>

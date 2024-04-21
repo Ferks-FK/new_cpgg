@@ -19,6 +19,7 @@ class Server extends Model
         'description',
         'identifier',
         'suspended',
+        'suspended_at',
         'pterodactyl_server_id',
         'product_id',
         'user_id',
