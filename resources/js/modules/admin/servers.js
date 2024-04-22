@@ -154,12 +154,6 @@ export default () => ({
 
     setServerData(server) {
         this.form.data = Object.assign({}, this.form.data, server)
-
-        console.log(this.form.data)
-
-        // this.form.data.id = server.id
-        // this.form.data.name = server.name
-        // this.form.data.user_id = server.user.id
     },
 
     setUsersData(users) {

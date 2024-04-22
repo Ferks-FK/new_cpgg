@@ -2,6 +2,7 @@ import axios from '../services/axios';
 
 export default () => ({
     products: [],
+    original_products: [],
     eggs: [],
     nodes: [],
 
@@ -73,27 +74,20 @@ export default () => ({
     },
 
     setEggsData(eggs) {
-       this.eggs = eggs.map((egg) => ({ id: egg.attributes.id, name: egg.attributes.name}))
+        this.eggs = Object.values(eggs)
     },
 
     setProductsData(products) {
-        this.products = products
+        this.original_products = products
     },
 
     setNodesData(nodes) {
-        this.nodes = nodes.map((node) => {
-            return {
-                id: node.attributes.id,
-                name: node.attributes.name,
-                memory: node.attributes.memory,
-                disk: node.attributes.disk,
-                memory_overallocate: node.attributes.memory_overallocate,
-                disk_overallocate: node.attributes.disk_overallocate,
-                allocated_resources: {
-                    memory: node.attributes.allocated_resources.memory,
-                    disk: node.attributes.allocated_resources.disk,
-                },
-            }
-        })
+        this.nodes = Object.values(nodes)
+    },
+
+    getProductByEggId() {
+        this.products = this.original_products.filter(product => {
+            return product.eggs.includes(parseInt(this.form.data.egg_id));
+        });
     }
 })

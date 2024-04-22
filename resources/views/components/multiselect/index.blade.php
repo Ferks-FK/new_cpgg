@@ -10,12 +10,9 @@
         
         init() {
             this.selected = this.getValueByPath('{{ $name }}')
-
-            console.log(this.selected)
         },
 
         getValueByPath(path) {
-            console.log(path)
             let parts = path.split('.')
             let current = this;
 

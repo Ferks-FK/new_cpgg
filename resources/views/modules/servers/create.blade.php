@@ -24,7 +24,7 @@
                         </x-form.group>
                         <x-form.group>
                             <x-form.label for="egg">Software / Game</x-form.label>
-                            <x-select x-model="form.data.egg_id" id="egg">
+                            <x-select x-model="form.data.egg_id" x-on:change="getProductByEggId()" id="egg">
                                 <option value="">Select...</option>
                                 <template x-for="egg in eggs" :key="egg.id">
                                     <option x-bind:value="egg.id" x-text="egg.name"></option>

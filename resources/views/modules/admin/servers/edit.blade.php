@@ -21,7 +21,7 @@
                         </x-form.group>
                         <x-form.group>
                             <x-form.label for="userId">User</x-form.label>
-                            <x-select x-model="form.data.user_id" x-on:change="console.log($event.target.value, form.data.user_id)" id="userId">
+                            <x-select x-model="form.data.user_id" id="userId">
                                 <template x-for="user in users" :key="user.id">
                                     <option x-bind:value="user.id" x-bind:selected="form.data.user_id == user.id" x-text="user.username"></option>
                                 </template>
