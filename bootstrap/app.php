@@ -17,20 +17,18 @@ return Application::configure(basePath: dirname(__DIR__))
             Route::middleware(['web', 'auth'])
                 ->group(base_path('routes/servers.php'));
 
-            Route::prefix('admin')
-                ->name('admin.')
-                ->middleware(['web', 'auth'])
-                ->group(base_path('routes/admin/products.php'));
-            
-            Route::prefix('admin')
-                ->name('admin.')
-                ->middleware(['web', 'auth'])
-                ->group(base_path('routes/admin/servers.php'));
+            Route::middleware(['web', 'auth'])
+                ->group(base_path('routes/shop.php'));
 
-            Route::prefix('admin')
-                ->name('admin.')
-                ->middleware(['web', 'auth'])
-                ->group(base_path('routes/admin/users.php'));
+            Route::middleware(['web', 'auth'])
+                ->group(base_path('routes/cart.php'));
+
+            Route::prefix('admin')->name('admin.')->middleware([])->group(function() {
+                Route::group([], base_path('routes/admin/products.php'));
+                Route::group([], base_path('routes/admin/servers.php'));
+                Route::group([], base_path('routes/admin/users.php'));
+                Route::group([], base_path('routes/admin/store.php'));
+            });
         }
     )
     ->withMiddleware(function (Middleware $middleware) {

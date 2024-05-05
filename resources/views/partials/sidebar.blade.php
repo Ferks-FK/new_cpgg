@@ -10,11 +10,13 @@
         <x-navbar.group>
             <x-navbar.item route="{{ route('home') }}" label="Dashboard" icon="icon.home" active="{{ request()->is(['/']) }}"/>
             <x-navbar.item route="{{ route('servers') }}" label="Servers" icon="icon.servers" active="{{ request()->is(['servers', 'servers/*']) }}"/>
+            <x-navbar.item route="{{ route('shop') }}" label="Shop" icon="icon.shopping-basket" active="{{ request()->is(['shop', 'shop/*']) }}"/>
         </x-navbar.group>
         <x-navbar.group title="Administration">
             <x-navbar.item route="{{ route('admin.users') }}" label="Users" icon="icon.users" active="{{ request()->is(['admin/users', 'admin/users/*']) }}"/>
             <x-navbar.item route="{{ route('admin.servers') }}" label="Servers" icon="icon.servers" active="{{ request()->is(['admin/servers', 'admin/servers/*']) }}"/>
             <x-navbar.item route="{{ route('admin.products') }}" label="Products" icon="icon.sliders" active="{{ request()->is(['admin/products', 'admin/products/*']) }}"/>
+            <x-navbar.item route="{{ route('admin.store') }}" label="Store" icon="icon.shopping-basket" active="{{ request()->is(['admin/store', 'admin/store/*']) }}"/>
         </x-navbar.group>
     </x-navbar>
 </div>
