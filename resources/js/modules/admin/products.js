@@ -58,7 +58,7 @@ export default () => ({
 
         try {
             const { data } = await axios.patch(`/admin/products/update/${this.form.data.id}`, this.form.data)
-            
+
             this.$dispatch('toast', {
                 message: data.message,
                 type: 'success',

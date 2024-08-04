@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Cart;
 
 use App\Contracts\Eloquent\CartRepositoryInterface;
-use Illuminate\Http\Request;
+use App\Http\Requests\Cart\UpdateCartRequest;
 
 class UpdateCartController
 {
@@ -14,9 +14,9 @@ class UpdateCartController
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request)
+    public function __invoke(UpdateCartRequest $request)
     {
-        $items = $this->cartRepositoryInterface->update($request->product_id, $request->quantity);
+        $items = $this->cartRepositoryInterface->update($request->product_id, $request->quantity, $request->increment);
 
         return response()->json([
             'message' => 'Cart updated successfully.',

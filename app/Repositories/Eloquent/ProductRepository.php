@@ -47,7 +47,7 @@ class ProductRepository implements ProductRepositoryInterface
         $model = $this->findById($id);
 
         $model->update($data);
-        
+
         return $model->fresh();
     }
 

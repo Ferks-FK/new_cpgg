@@ -5,10 +5,11 @@
 <div
     x-data="{
         isOpen: false,
-        selectedOptions: [],
-
+        selected: null,
+        selectedNames: [],
+        
         init() {
-            this.selectedOptions = this.getValueByPath('{{ $name }}')
+            this.selected = this.getValueByPath('{{ $name }}')
         },
 
         getValueByPath(path) {
@@ -26,27 +27,30 @@
         },
 
         addOption(name, value) {
-            if (!this.selectedOptions.some(option => option.value == value)) {
-                this.selectedOptions.push({ name: name, value: value });
+            if (!this.selectedNames.includes(name)) {
+                this.selectedNames.push(name);
+            }
+
+            if (!this.selected.includes(value)) {
+                this.selected.push(value);
             }
         },
 
-        removeOption(option) {
-            this.selectedOptions = this.selectedOptions.filter(opt => opt.value != option.value);
+        removeOption(name, value) {
+            this.selected.splice(this.selected.indexOf(value), 1);
+            this.selectedNames.splice(this.selectedNames.indexOf(name), 1);
         },
     }"
-    x-model="{{ $name }}"
-    x-modelable="selectedOptions"
     x-on:click.away="isOpen = false"
 >
     <div class="relative">
         <div x-on:click="isOpen = !isOpen" class="flex items-center h-auto gap-1 px-2 py-1 border rounded-md cursor-pointer min-h-10 focus-visible:border-zinc-400/70 focus-visible:outline-none focus-visible:border-blue-300 border-zinc-400">
-            <span x-show="selectedOptions.length === 0">Select...</span>
+            <span x-show="selectedNames.length === 0">Select...</span>
             <div class="flex items-center justify-between w-full">
                <div class="flex flex-wrap gap-1">
-                    <template x-for="(option, index) in selectedOptions" :key="index">
+                    <template x-for="(option, index) in selectedNames" :key="index">
                         <div class="flex items-center w-auto gap-1 px-2 bg-blue-400 rounded-md min-h-3">
-                            <span class="inline-block" x-text="option.name"></span>
+                            <span class="inline-block" x-text="option"></span>
                             <svg x-on:click.stop="removeOption(option)" xmlns="http://www.w3.org/2000/svg" class="size-4" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                         </div>
                     </template>

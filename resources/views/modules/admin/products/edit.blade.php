@@ -105,7 +105,7 @@
                     <x-form.label for="nodes">Nodes</x-form.label>
                     <x-multiselect name="form.data.nodes">
                         <template x-for="node in nodes" :key="node.attributes.id">
-                            <x-multiselect.option x-bind:name="node.attributes.name" x-bind:value="node.attributes.id"/>
+                            <x-multiselect.option x-bind:value="node.attributes.id" x-text="node.attributes.name"/>
                         </template>
                     </x-multiselect>
                 </x-form.group>
@@ -113,7 +113,7 @@
                     <x-form.label for="eggs">Eggs</x-form.label>
                     <x-multiselect name="form.data.eggs">
                         <template x-for="egg in eggs" :key="egg.attributes.id">
-                            <x-multiselect.option x-bind:name="egg.attributes.name" x-bind:value="egg.attributes.id"/>
+                            <x-multiselect.option x-bind:value="egg.attributes.id" x-text="egg.attributes.name"/>
                         </template>
                     </x-multiselect>
                 </x-form.group>

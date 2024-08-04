@@ -10,7 +10,7 @@
         <x-navbar.group>
             <x-navbar.item route="{{ route('home') }}" label="Dashboard" icon="icon.home" active="{{ request()->is(['/']) }}"/>
             <x-navbar.item route="{{ route('servers') }}" label="Servers" icon="icon.servers" active="{{ request()->is(['servers', 'servers/*']) }}"/>
-            <x-navbar.item route="{{ route('shop') }}" label="Shop" icon="icon.shopping-basket" active="{{ request()->is(['shop', 'shop/*']) }}"/>
+            <x-navbar.item route="{{ route('shop') }}" label="Shop" icon="icon.shopping-basket" active="{{ request()->is(['shop', 'shop/*', 'cart']) }}"/>
         </x-navbar.group>
         <x-navbar.group title="Administration">
             <x-navbar.item route="{{ route('admin.users') }}" label="Users" icon="icon.users" active="{{ request()->is(['admin/users', 'admin/users/*']) }}"/>

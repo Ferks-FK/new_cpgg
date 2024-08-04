@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Cart;
 use App\Contracts\Eloquent\CartRepositoryInterface;
 use Illuminate\Http\Request;
 
-class DeleteCartController
+class DeleteCartItemController
 {
     public function __construct(
         protected CartRepositoryInterface $cartRepositoryInterface)
@@ -14,12 +14,13 @@ class DeleteCartController
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request, int $id)
+    public function __invoke(Request $request, int $item_id)
     {
-        $this->cartRepositoryInterface->delete($id);
+        $cart = $this->cartRepositoryInterface->deleteItem($item_id);
 
         return response()->json([
-            'message' => 'Cart deleted successfully.'
+            'message' => 'Cart item deleted successfully.',
+            'cart' => $cart
         ]);
     }
 }

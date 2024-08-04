@@ -30,7 +30,7 @@
                             </ul>
                         </x-card.content>
                     </x-card>
-                    <x-button>
+                    <x-button as="link" href="{{ route('cart') }}">
                         Cart
                     </x-button>
                 </div>

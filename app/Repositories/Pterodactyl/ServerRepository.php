@@ -100,8 +100,6 @@ class ServerRepository extends ApiConfigRepository implements ServerRepositoryIn
 
     public function updateBuild(int $id, mixed $data)
     {
-        logger($data);
-
         try {
             $response = $this->application()->patch("servers/{$id}/build", $data);
         } catch (Exception $exception) {

@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Query\Expression;
 
 return new class extends Migration
 {
@@ -27,8 +28,8 @@ return new class extends Migration
             $table->integer('allocations');
             $table->float('minimum_credits')->default(-1);
             $table->boolean('active')->default(true);
-            $table->json('eggs')->default('[]');
-            $table->json('nodes')->default('[]');
+            $table->json('eggs')->default(new Expression('(JSON_ARRAY())'));
+            $table->json('nodes')->default(new Expression('(JSON_ARRAY())'));
             $table->timestamps();
         });
     }
