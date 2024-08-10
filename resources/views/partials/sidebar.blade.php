@@ -17,6 +17,7 @@
             <x-navbar.item route="{{ route('admin.servers') }}" label="Servers" icon="icon.servers" active="{{ request()->is(['admin/servers', 'admin/servers/*']) }}"/>
             <x-navbar.item route="{{ route('admin.products') }}" label="Products" icon="icon.sliders" active="{{ request()->is(['admin/products', 'admin/products/*']) }}"/>
             <x-navbar.item route="{{ route('admin.store') }}" label="Store" icon="icon.shopping-basket" active="{{ request()->is(['admin/store', 'admin/store/*']) }}"/>
+            <x-navbar.item route="{{ route('admin.gateways') }}" label="Gateways" icon="icon.hand-coins" active="{{ request()->is(['admin/gateways', 'admin/gateways/*']) }}"/>
         </x-navbar.group>
     </x-navbar>
 </div>

@@ -11,6 +11,7 @@ return [
             App\Contracts\Eloquent\StoreRepositoryInterface::class => App\Repositories\Eloquent\StoreRepository::class,
             App\Contracts\Eloquent\StoreCategoryRepositoryInterface::class => App\Repositories\Eloquent\StoreCategoryRepository::class,
             App\Contracts\Eloquent\CartRepositoryInterface::class => App\Repositories\Eloquent\CartRepository::class,
+            App\Contracts\Eloquent\GatewayRepositoryInterface::class => App\Repositories\Eloquent\GatewayRepository::class,
         ]
     ],
 ];

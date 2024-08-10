@@ -9,11 +9,13 @@ import adminUsers from './modules/admin/users';
 import adminServers from './modules/admin/servers';
 import products from './modules/admin/products';
 import store from './modules/admin/store';
+import gateways from './modules/admin/gateways';
 
 // Client Imports
 import servers from './modules/servers';
 import shop from './modules/shop';
 import cart from './modules/cart';
+import checkout from './modules/checkout';
 
 // Components
 import usePopper from './components/usePopper';
@@ -39,11 +41,13 @@ Alpine.data('register', register);
 Alpine.data('servers', servers);
 Alpine.data('shop', shop);
 Alpine.data('cart', cart);
+Alpine.data('checkout', checkout);
 
 // Admin Modules
 Alpine.data('adminUsers', adminUsers);
 Alpine.data('adminServers', adminServers);
 Alpine.data('products', products);
 Alpine.data('store', store);
+Alpine.data('gateways', gateways);
 
 Alpine.start();

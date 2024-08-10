@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,6 +34,19 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $path = app_path('Extensions/Gateways');
+        $files = scandir($path);
+
+        foreach ($files as $file) {
+            if ($file === '.' || $file === '..') {
+                continue;
+            }
+
+            $filePath = $path . DIRECTORY_SEPARATOR . $file;
+
+            if (is_dir($filePath)) {
+                View::addNamespace(strtolower($file), $filePath . '/src/views');
+            }
+        }
     }
 }

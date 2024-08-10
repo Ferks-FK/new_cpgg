@@ -31,7 +31,7 @@
                                         <span x-text="item.product.price"></span>
                                     </x-table.td>
                                     <x-table.td class="!p-1.5">
-                                        <x-form.input type="number" x-model="item.quantity" x-on:change.debounce="updateItem(item.store_product_id, item.quantity)" class="text-sm h-7 w-fit"/>
+                                        <x-form.input type="number" x-model="item.quantity" x-on:input.debounce="updateItem(item.store_product_id, item.quantity)" class="text-sm h-7 !w-fit"/>
                                     </x-table.td>
                                     <x-table.td class="!p-1.5">
                                         <span x-text="item.product.price * item.quantity"></span>
@@ -64,7 +64,7 @@
                 <x-button as="link" icon="icon.move-left" href="{{ route('shop') }}" variant="secondary" x-on:click="continueShopping()">
                     Continue Shopping
                 </x-button>
-                <x-button x-show="cart" variant="primary" x-on:click="checkout()">Checkout</x-button>
+                <x-button x-show="cart" as="link" href="{{ route('checkout') }}" variant="primary">Checkout</x-button>
             </div>
         </x-card>
     </x-module>
