@@ -1,4 +1,5 @@
 import Alpine from 'alpinejs';
+import anchor from '@alpinejs/anchor'
 
 // Auth Imports
 import login from './auth/login';
@@ -17,17 +18,14 @@ import shop from './modules/shop';
 import cart from './modules/cart';
 import checkout from './modules/checkout';
 
-// Components
-import usePopper from './components/usePopper';
-
 // Stores
 import breakpoints from './stores/breakpoints';
 import layout from './stores/layout';
 
 window.Alpine = Alpine;
 
-// components
-Alpine.data("usePopper", usePopper);
+// Plugins
+Alpine.plugin(anchor);
 
 // Stores
 Alpine.store("breakpoints", breakpoints);

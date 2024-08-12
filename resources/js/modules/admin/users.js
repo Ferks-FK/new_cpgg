@@ -33,11 +33,11 @@ export default () => ({
         loading: false
     },
 
-    handleConfirm() {
+    handleConfirm(confirm) {
         this.confirm.id = this.user.id
         this.confirm.name = this.user.first_name + ' ' + this.user.last_name
 
-        this.$dispatch("confirm");
+        this.$dispatch("confirm", confirm);
     },
 
     async handleCreate() {

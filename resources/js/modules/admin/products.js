@@ -47,8 +47,8 @@ export default () => ({
     },
 
     handleConfirm(confirm) {
-        this.confirm.id = this.form.data.id
-        this.confirm.name = this.form.data.name
+        this.confirm.id = confirm === 'delete' ? this.product.id : this.form.data.id
+        this.confirm.name = confirm === 'delete' ? this.product.name : this.form.data.name
 
         this.$dispatch("confirm", confirm);
     },

@@ -60,7 +60,7 @@
                                             <x-dropdown.menu>
                                                 <x-dropdown.item x-bind:href="`/admin/users/edit/${user.id}`">Edit</x-dropdown.item>
                                                 <x-dropdown.divider/>
-                                                <x-dropdown.item href="#" background="danger" x-on:click="handleConfirm()">Delete</x-dropdown.item>
+                                                <x-dropdown.item href="#" background="danger" x-on:click="handleConfirm('delete')">Delete</x-dropdown.item>
                                             </x-dropdown.menu>
                                         </x-dropdown>
                                     </x-table.td>
@@ -76,7 +76,7 @@
                 <x-empty.message>No users found.</x-empty.message>
             </x-empty>
         </template>
-        <x-confirm>
+        <x-confirm name="delete">
             <x-confirm.content>
                 <x-confirm.header>
                     Delete User
