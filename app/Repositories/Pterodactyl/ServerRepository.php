@@ -43,7 +43,7 @@ class ServerRepository extends ApiConfigRepository implements ServerRepositoryIn
         return $response->json()['attributes'];
     }
 
-    public function create(mixed $data, mixed $egg_attributes, array $allocations)
+    public function create(mixed $data, mixed $egg_attributes, array $allocations, array $intall_variables)
     {
         $attributes = [
             'name' => $data->name,
@@ -52,7 +52,7 @@ class ServerRepository extends ApiConfigRepository implements ServerRepositoryIn
             'egg' => $egg_attributes['id'],
             'docker_image' => $egg_attributes['docker_image'],
             'startup' => $egg_attributes['startup'],
-            'environment' => $this->getEnvironmentVariables($egg_attributes),
+            'environment' => $this->getEnvironmentVariables($egg_attributes, $intall_variables),
             'limits' => [
                 'memory' => $data->product->memory,
                 'swap' => $data->product->swap,
@@ -158,12 +158,16 @@ class ServerRepository extends ApiConfigRepository implements ServerRepositoryIn
         return true;
     }
 
-    private function getEnvironmentVariables(mixed $egg_attributes)
+    private function getEnvironmentVariables(mixed $egg_attributes, array $intall_variables = [])
     {
         $variables = [];
 
         foreach ($egg_attributes['relationships']['variables']['data'] as $variable) {
             $variables[$variable['attributes']['env_variable']] = $variable['attributes']['default_value'];
+        }
+
+        foreach ($intall_variables as $install_variable) {
+            $variables[$install_variable['id']] = $install_variable['value'];
         }
 
         return $variables;

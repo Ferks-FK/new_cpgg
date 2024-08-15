@@ -24,8 +24,9 @@ class CreateServerRequest extends FormRequest
         return [
             'name' => 'required|string',
             'egg_id' => 'required|integer',
-            'node_id' => 'required|integer',
+            'location_id' => 'required|integer',
             'product_id' => 'required|exists:products,id',
+            'egg_variables' => 'nullable|array'
         ];
     }
 }
