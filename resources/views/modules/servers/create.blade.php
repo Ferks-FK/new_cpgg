@@ -53,7 +53,7 @@
             </x-card.content>
         </x-card>
         <div x-show="form.data.location_id && !has_node_to_install" class="flex items-center w-full px-2 py-4 bg-red-500 border border-red-500 rounded-md">
-            <span>The chosen node does not meet the requirements of this product.</span>
+            <span>There is no node to support your server.</span>
         </div>
         <div x-show="form.data.location_id && products.length && has_node_to_install" class="grid self-center grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 md:self-auto">
             <template x-for="product in products" :key="product.id">
