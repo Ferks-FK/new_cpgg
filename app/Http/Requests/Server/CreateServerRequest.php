@@ -21,12 +21,36 @@ class CreateServerRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules =  [
             'name' => 'required|string',
             'egg_id' => 'required|integer',
             'location_id' => 'required|integer',
             'product_id' => 'required|exists:products,id',
             'egg_variables' => 'nullable|array'
         ];
+
+        if (!empty($this->egg_variables)) {
+            foreach ($this->egg_variables as $key => $egg_variable) {
+                $rules["egg_variables.$key.id"] = 'required|string';
+                $rules["egg_variables.$key.label"] = 'required|string';
+                $rules["egg_variables.$key.type"] = 'required|string';
+                $rules["egg_variables.$key.value"] = $egg_variable['rules'];
+            }
+        }
+
+        return $rules;
+    }
+
+    public function attributes()
+    {
+        $attributes = [];
+
+        if (!empty($this->egg_variables)) {
+            foreach ($this->egg_variables as $key => $egg_variable) {
+                $attributes["egg_variables.$key.value"] = $egg_variable['label'];
+            }
+        }
+
+        return $attributes;
     }
 }

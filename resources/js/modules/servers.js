@@ -18,7 +18,7 @@ export default () => ({
             name: null,
             egg_id: null,
             location_id: null,
-            egg_variables: null
+            egg_variables: []
         },
         loading: false
     },
@@ -57,11 +57,22 @@ export default () => ({
             }
 
             const errors = error.response.data.errors;
-            this.form.errors = {};
             console.error(error)
 
             for (const field in errors) {
                 this.form.errors[field] = errors[field][0];
+
+                for (const field in errors) {
+                    if (field.startsWith('egg_variables.')) {
+                        const [_, index, subField] = field.split('.');
+
+                        if (this.form.errors.egg_variables[index] === undefined) {
+                            this.form.errors.egg_variables[index] = {};
+                        }
+
+                        this.form.errors.egg_variables[index][subField] = errors[field];
+                    }
+                }
             }
         }
     },
@@ -98,13 +109,13 @@ export default () => ({
         const egg = this.eggs.find(egg => egg.value == egg_id)
 
         egg.variables.forEach((variable) => {
-            console.log(variable.attributes)
             if (variable.attributes.rules.includes('required') && !variable.attributes.default_value) {
                 this.form.data.egg_variables.push({
                     id: variable.attributes.env_variable,
                     label: variable.attributes.name,
                     value: '',
-                    type: 'string'
+                    type: 'string',
+                    rules: variable.attributes.rules
                 })
             }
         })
