@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers\Admin\Gateways;
 
-use App\Models\Gateway;
 use Illuminate\Http\Request;
+use App\Contracts\Eloquent\GatewayRepositoryInterface;
 
 class EditGatewayController
 {
+    public function __construct(
+        protected GatewayRepositoryInterface $gatewayRepositoryInterface)
+    {}
+
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request, string $id)
+    public function __invoke(Request $request, string $type)
     {
-        $gateway = Gateway::findOrFail($id);
+        $gateway = $this->gatewayRepositoryInterface->findByType($type);
 
         $gateway->class = view("{$gateway->type}::admin.form")->render();
 

@@ -2,6 +2,7 @@
     'class' => '',
     'variant' => 'primary',
     'icon' => '',
+    'icon_size' => 'size-5',
     'variants' => [
         'primary' => 'bg-blue-500 hover:bg-blue-600 text-white',
         'secondary' => 'bg-gray-500 hover:bg-gray-600 text-white',
@@ -29,7 +30,7 @@
     <button {{ $attributes }} class="flex gap-2 justify-center items-center text-sm transition-colors font-medium focus-visible:outline-none focus-visible:ring-offset-2 dark:ring-offset-black ring-offset-white focus-visible:ring-2 disabled:opacity-50 disabled:cursor-not-allowed {{ $variants[$variant] }} {{ $sizes[$size] }} {{ $shapes[$shape] }} {{ $class }}">
         @if($icon)
             <span class="flex items-center justify-center gap-1">
-                <x-dynamic-component :component="$icon"/>
+                <x-dynamic-component :component="$icon" class="{{ $icon_size }}"/>
                 {{ $slot }}
             </span>
         @else
@@ -42,7 +43,7 @@
     <a {{ $attributes }} class="flex gap-2 justify-center items-center text-sm transition-colors font-medium focus-visible:outline-none focus-visible:ring-offset-2 dark:ring-offset-black ring-offset-white focus-visible:ring-2 disabled:opacity-50 disabled:cursor-not-allowed {{ $variants[$variant] }} {{ $sizes[$size] }} {{ $shapes[$shape] }} {{ $class }}">
         @if($icon)
             <span class="flex items-center justify-center gap-1">
-                <x-dynamic-component :component="$icon"/>
+                <x-dynamic-component :component="$icon" class="{{ $icon_size }}"/>
                 {{ $slot }}
             </span>
         @else

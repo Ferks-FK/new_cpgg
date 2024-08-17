@@ -17,9 +17,11 @@ trait Extensiable
         return $extensions;
     }
 
-    public function getExtension($name, $params = [])
+    public function getExtension($name = null, $params = [])
     {
-        $class = self::GATEWAYS_NAMESPACE . Str::studly($name) . '\\' . Str::studly($name);
+        $name = Str::studly($name ?: $this->type);
+
+        $class = self::GATEWAYS_NAMESPACE . $name . '\\' . $name;
 
         return app($class, $params);
     }

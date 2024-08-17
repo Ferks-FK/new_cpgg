@@ -19,8 +19,17 @@ class GatewayRepository implements GatewayRepositoryInterface
         return $this->query->get();
     }
 
-    public function update()
+    public function findByType(string $type)
     {
-        // Update gateway
+        return $this->query->where('type', $type)->first();
+    }
+
+    public function update(string $type, array $data)
+    {
+        $model = $this->findByType($type);
+
+        $model->update($data);
+
+        return $model->fresh();
     }
 }

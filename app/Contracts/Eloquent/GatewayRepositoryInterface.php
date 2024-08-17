@@ -6,5 +6,7 @@ interface GatewayRepositoryInterface
 {
     public function all();
 
-    public function update();
+    public function findByType(string $type);
+
+    public function update(string $type, array $data);
 }
