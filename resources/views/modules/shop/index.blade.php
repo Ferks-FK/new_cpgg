@@ -5,7 +5,7 @@
         <x-breadcrumb.item icon="icon.home" href="{{ route('home') }}">Dashboard</x-breadcrumb.item>
         <x-breadcrumb.item href="{{ route('shop') }}">Shop</x-breadcrumb.item>
     </x-breadcrumb>
-    <x-module x-data="shop()" x-init="setCategoriesData({{ json_encode($categories) }})">
+    <x-module x-data="shop()" x-init="setCategoriesData({{ json_encode($categories) }}); setFlashMessage({{ json_encode(session()->only(['success', 'error'])) }})">
         <x-module.header>
             <x-module.title>Shop</x-module.title>
         </x-module.header>

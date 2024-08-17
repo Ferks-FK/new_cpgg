@@ -26,6 +26,25 @@ export default () => ({
         }
     },
 
+    setFlashMessage(flash) {
+        let keys = Object.keys(flash)[0]
+
+        if (keys === undefined) {
+            return
+        }
+
+        let message = flash[keys]
+
+        let type = keys === 'success' ? 'success' : 'error'
+
+        this.$nextTick(() => {
+            this.$dispatch('toast', {
+                message: message,
+                type: type
+            })
+        })
+    },
+
     setCategoryData(category) {
         this.categoryData = category
     },

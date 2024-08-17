@@ -3,14 +3,13 @@ import axios from '../services/axios'
 export default () => ({
     gateways: [],
 
-    async handleCheckout(gateway) {
-        try {
-            const { data } = await axios.post(`/checkout/${gateway}`)
+    handleCheckout(event, gatewayType) {
+        const href = event.currentTarget.href;
 
+        const form = document.getElementById('submitForm');
+        form.action = href + gatewayType;
 
-        } catch (error) {
-            console.error(error)
-        }
+        form.submit();
     },
 
     setGatewaysData(gateways) {

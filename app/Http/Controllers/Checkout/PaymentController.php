@@ -16,8 +16,8 @@ class PaymentController
     {
         $cart = Cart::where('session', Cookie::get('cart'))->first();
 
-        $class = $gateway->getExtension($gateway->type, ['gateway' => $gateway]);
+        $class = $gateway->getExtension(params: ['gateway' => $gateway]);
 
-        $class->makePayment($cart, 100, 'USD');
+        return $class->makePayment($cart, 100, 'USD');
     }
 }

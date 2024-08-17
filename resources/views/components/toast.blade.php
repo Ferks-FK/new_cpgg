@@ -36,10 +36,10 @@
 
         saveToast(id, message, type) {
             const toast = {id, message, type };
-    
+
             localStorage.setItem('pendingToast', JSON.stringify(toast));
         },
-        
+
 		fire(id) {
 			this.visible.push(this.toasts.find(toast => toast.id == id))
 			const timeShown = 2000 * this.visible.length

@@ -19,10 +19,7 @@
         <template x-if="gateways.length">
             <div class="flex items-center gap-5">
                 <template x-for="gateway in gateways" :key="gateway.id">
-                    <a href="{{ route('checkout.gateway', '') }}/"
-                       x-bind:data-type="gateway.type"
-                       x-on:click.prevent="handleCheckout($event, gateway.type)"
-                       class="flex w-1/4">
+                    <a href="#" x-on:click="handleCheckout(gateway.type)" class="flex w-1/4">
                         <x-card>
                             <x-card.content>
                                 <img x-bind:src="gateway.image" x-bind:alt="gateway.name" class="max-h-14"/>
@@ -33,7 +30,4 @@
             </div>
         </template>
     </x-module>
-    <form method="POST" id="submitForm">
-        @csrf
-    </form>
 @endsection
