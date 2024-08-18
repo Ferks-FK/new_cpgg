@@ -12,7 +12,7 @@
         </x-module.header>
         <template x-if="categories.length">
             <div class="flex flex-col gap-5 md:flex-row">
-                <div class="flex flex-col gap-5 w-full md:max-w-[300px]">
+                <div class="flex flex-col justify-between w-full md:max-w-[300px]">
                     <x-card class="h-fit">
                         <x-card.content>
                             <ul class="flex flex-col flex-wrap gap-1">

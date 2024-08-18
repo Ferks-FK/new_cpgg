@@ -22,12 +22,13 @@ class CreateProductStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type' => 'required|in:credits,slots',
+            'name' => 'required|string',
             'description' => 'required|string',
+            'type' => 'required|in:credits,slots',
             'price' => 'required|numeric',
             'quantity' => 'required|numeric',
             'active' => 'required|boolean',
-            'category_id' => 'required|exists:store_product_categories,id',
+            'category_id' => 'required|exists:store_categories,id',
         ];
     }
 }

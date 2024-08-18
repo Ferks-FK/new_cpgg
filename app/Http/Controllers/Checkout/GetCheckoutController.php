@@ -14,16 +14,18 @@ class GetCheckoutController
      */
     public function __invoke(Request $request)
     {
+        $cart = Cart::where('session', Cookie::get('cart'))->first();
+
+        abort_if((!$cart || $cart->items->count() === 0), 404);
+
         $gateways = Gateway::where('active', true)->get();
 
         if ($gateways->count() === 1) {
-            $cart = Cart::where('session', Cookie::get('cart'))->first();
-
             $gateway = $gateways->first();
 
-            $class = $gateway->getExtension($gateway->type, ['gateway' => $gateway]);
+            $class = $gateway->getExtension(params: ['gateway' => $gateway]);
 
-            return $class->makePayment($cart, 100, 'USD');
+            return $class->makePayment($cart, $cart->total, 'USD');
         }
 
         return view('modules.checkout.index', compact('gateways'));

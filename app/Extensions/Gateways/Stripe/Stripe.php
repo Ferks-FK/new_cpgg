@@ -4,9 +4,12 @@ namespace App\Extensions\Gateways\Stripe;
 
 use App\Extensions\BasePaymentMethod;
 use App\Models\Cart;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 use Stripe\Stripe as StripeClass;
 use Stripe\Checkout\Session;
+use Stripe\Webhook;
+use Stripe\Exception\SignatureVerificationException;
 
 class Stripe extends BasePaymentMethod
 {
@@ -70,12 +73,24 @@ class Stripe extends BasePaymentMethod
 
     public function notification(Request $request, ?string $payment_id)
     {
-        // Handle a payment notification request sent by the Stripe payment gateway.
+        $this->setup();
 
-        return response()->json([
-            'message' => 'Payment notification received.',
-            'json' => $request->all(),
-        ]);
+        $webhook_secret = $this->gateway->data->webhook_secret;
+        $stripe_signature = $request->header('Stripe-Signature');
+
+        try {
+            $event = Webhook::constructEvent($request->getContent(), $stripe_signature, $webhook_secret);
+        } catch (SignatureVerificationException $e) {
+            return response()->json([
+                'error' => 'Invalid signature: '. $e->getMessage(),
+            ], 400);
+        }
+
+        if ($event->type === 'checkout.session.completed') {
+            $payment = Payment::find($event->data->object->client_reference_id);
+
+            $this->processPayment($payment);
+        }
     }
 
     public function rules(): array

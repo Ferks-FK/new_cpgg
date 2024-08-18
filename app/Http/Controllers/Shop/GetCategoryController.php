@@ -16,7 +16,7 @@ class GetCategoryController
      */
     public function __invoke(Request $request, int $id)
     {
-        $categories = $this->storeCategoryRepositoryInterface->all(['products']);
+        $categories = $this->storeCategoryRepositoryInterface->allActiveWithHasRelation('products', ['products']);
         $category = $this->storeCategoryRepositoryInterface->find($id, ['products']);
 
         if (!$category) {

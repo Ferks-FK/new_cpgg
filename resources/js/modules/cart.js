@@ -8,14 +8,16 @@ export default () => ({
     async updateItem(product_id, quantity) {
         this.loading = true
 
+        if (quantity < 1) {
+            return
+        }
+
         try {
             const { data } = await axios.patch(`/cart`, {
                 product_id,
                 quantity,
                 increment: false
             })
-
-            console.log(data)
 
             this.calculateTotal()
 
@@ -35,8 +37,6 @@ export default () => ({
 
         try {
             const { data } = await axios.delete(`/cart/item/${item_id}`)
-
-            console.log(data)
 
             if (data.cart) {
                 this.cart.items = this.cart.items.filter(item => item.id !== item_id)

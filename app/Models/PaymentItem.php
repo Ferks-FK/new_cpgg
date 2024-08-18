@@ -25,4 +25,9 @@ class PaymentItem extends Model
     {
         return $this->belongsTo(Payment::class);
     }
+
+    public function purchasable()
+    {
+        return $this->morphTo();
+    }
 }

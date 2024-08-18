@@ -27,4 +27,9 @@ class StoreCategory extends Model
     {
         return $this->hasMany(StoreProduct::class, 'category_id');
     }
+
+    public function scopeActiveWithHasRelation($query, $relation)
+    {
+        return $query->where('active', true)->whereHas($relation);
+    }
 }

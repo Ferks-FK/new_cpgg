@@ -7,6 +7,9 @@ use App\Models\Cart;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 
+/**
+ * Most of the logic/code was taken from Azuriom (https://github.com/Azuriom/Azuriom)
+ */
 abstract class BasePaymentMethod
 {
     /**
@@ -60,15 +63,58 @@ abstract class BasePaymentMethod
         ]);
 
         foreach($cart->items as $cart_item) {
-            $payment->items()->make([
+            $payment_item = $payment->items()->make([
                 'name' => $cart_item->product->name,
                 'price' => $cart_item->product->price,
                 'quantity' => $cart_item->quantity,
                 'payment_id' => $payment->id
-            ])->save();
+            ]);
+
+            $payment_item->purchasable()->associate($cart_item->product);
+            $payment_item->save();
         }
 
         return $payment;
+    }
+
+    /**
+     * Try to process the given payment, and return a response with the result.
+     * If a payment ID is provided, it will be used to update the payment transaction ID.
+     */
+    protected function processPayment(?Payment $payment, ?string $payment_id = null)
+    {
+        if (!$payment) {
+            logger()->warning('Invalid payment for #' . $payment_id);
+
+            return response()->json([
+                'status' => false,
+                'message' => 'Unable to retrieve the payment',
+            ], 400);
+        }
+
+        if ($payment->isCompleted()) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Payment already completed',
+            ]);
+        }
+
+        if (!$payment->isPending()) {
+            logger()->warning("Invalid payment status for #{$payment->id}: ". $payment->status);
+
+            return response()->json([
+                'status' => false,
+                'message' => 'Invalid payment status: '. $payment->status,
+            ]);
+        }
+
+        if ($payment_id) {
+            $payment->fill(['transaction_id' => $payment_id]);
+        }
+
+        $payment->deliver();
+
+        return response()->json(['status' => true]);
     }
 
     /**

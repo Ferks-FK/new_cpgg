@@ -8,7 +8,7 @@ use App\Models\StoreProduct;
 class StoreRepository implements StoreRepositoryInterface
 {
     protected $query;
-    
+
     public function __construct()
     {
         $this->query = StoreProduct::query();

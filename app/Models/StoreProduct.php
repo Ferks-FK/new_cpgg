@@ -24,8 +24,19 @@ class StoreProduct extends Model
         'category_id',
     ];
 
+    /**
+     * Get the category of the product.
+     */
     public function category()
     {
         return $this->belongsTo(StoreCategory::class);
+    }
+
+    /**
+     * Get the payment item for the product.
+     */
+    public function paymentItem()
+    {
+        return $this->morphOne(PaymentItem::class, 'purchasable');
     }
 }

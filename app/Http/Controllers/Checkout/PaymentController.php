@@ -18,6 +18,6 @@ class PaymentController
 
         $class = $gateway->getExtension(params: ['gateway' => $gateway]);
 
-        return $class->makePayment($cart, 100, 'USD');
+        return $class->makePayment($cart, $cart->total, 'USD');
     }
 }

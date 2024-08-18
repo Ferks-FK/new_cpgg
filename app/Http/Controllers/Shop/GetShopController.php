@@ -16,7 +16,7 @@ class GetShopController
      */
     public function __invoke(Request $request)
     {
-        $categories = $this->storeCategoryRepositoryInterface->all(['products']);
+        $categories = $this->storeCategoryRepositoryInterface->allActiveWithHasRelation('products', ['products']);
 
         return view('modules.shop.index', compact('categories'));
     }

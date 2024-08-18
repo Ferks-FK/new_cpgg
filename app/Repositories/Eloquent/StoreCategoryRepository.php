@@ -23,6 +23,15 @@ class StoreCategoryRepository implements StoreCategoryRepositoryInterface
         return $this->query->get();
     }
 
+    public function allActiveWithHasRelation(string $relation, array $relations = [])
+    {
+        $valid_relations = array_intersect($relations, $this->validRelations('products'));
+
+        $this->query->with($valid_relations);
+
+        return $this->query->activeWithHasRelation($relation)->get();
+    }
+
     public function find(int $id, array $relations = [])
     {
         $valid_relations = array_intersect($relations, $this->validRelations('products'));
