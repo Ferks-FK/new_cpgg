@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ setting('site_name', config('app.name')) }}</title>
     @vite('resources/css/app.css')
 </head>
 <body x-cloak x-data class="text-white bg-gray-700">

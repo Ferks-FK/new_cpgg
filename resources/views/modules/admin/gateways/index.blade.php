@@ -3,7 +3,7 @@
 @section('content')
     <x-breadcrumb>
         <x-breadcrumb.item icon="icon.home" href="#">Dashboard</x-breadcrumb.item>
-        <x-breadcrumb.item href="#">Gateways</x-breadcrumb.item>
+        <x-breadcrumb.item icon="icon.hand-coins" href="#">Gateways</x-breadcrumb.item>
     </x-breadcrumb>
     <x-module>
         <x-module.header>

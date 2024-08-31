@@ -3,7 +3,7 @@
 @section('content')
     <x-breadcrumb>
         <x-breadcrumb.item icon="icon.home" href="#">Dashboard</x-breadcrumb.item>
-        <x-breadcrumb.item href="#">Users</x-breadcrumb.item>
+        <x-breadcrumb.item icon="icon.users" href="#">Users</x-breadcrumb.item>
     </x-breadcrumb>
     <x-module x-data="adminUsers()" x-init="setUsersData({{ json_encode($users) }})">
         <x-module.header>

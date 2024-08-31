@@ -111,7 +111,7 @@
                                         <li class="flex justify-between">
                                             <div class="flex items-center gap-1">
                                                 <x-icon.coins/>
-                                                <span>Required Credits</span>
+                                                <span>Required {{ setting('credits_display') }}</span>
                                             </div>
                                             <span x-text="product.minimum_credits == -1 ? 50 : product.minimum_credits"></span>
                                         </li>
@@ -125,7 +125,7 @@
                                 <div x-show="product.is_installable" class="flex flex-col gap-2">
                                     <div class="flex justify-between p-2 border rounded-md border-slate-500">
                                         <span>Price:</span>
-                                        <span x-text="product.price + ' Credits'"></span>
+                                        <span x-text="product.price + ' {{ setting('credits_display') }}'"></span>
                                     </div>
                                     <x-button size="lg" x-on:click="form.data.product_id = product.id; form.data.egg_variables.length > 0 ? handleConfirm('install') : handleProduct()">Create Server</x-button>
                                 </div>

@@ -3,7 +3,7 @@
 @section('content')
     <x-breadcrumb>
         <x-breadcrumb.item icon="icon.home" href="#">Dashboard</x-breadcrumb.item>
-        <x-breadcrumb.item href="{{ route('admin.gateways') }}">Gateways</x-breadcrumb.item>
+        <x-breadcrumb.item icon="icon.hand-coins" href="{{ route('admin.gateways') }}">Gateways</x-breadcrumb.item>
         <x-breadcrumb.item href="#">{{ $gateway->name }}</x-breadcrumb.item>
     </x-breadcrumb>
     <x-module x-data="gateways()" x-init="setGatewayData({{ json_encode($gateway) }})">

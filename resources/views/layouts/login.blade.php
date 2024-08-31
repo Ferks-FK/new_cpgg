@@ -8,11 +8,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ setting('site_name', config('app.name')) }}</title>
     @vite('resources/css/app.css')
 </head>
 <body x-cloak x-data class="text-white">
-    <div class="flex flex-col size-full justify-center items-center bg-gray-700 text-white">
+    <div class="flex flex-col items-center justify-center text-white bg-gray-700 size-full">
         @yield('content')
     </div>
     <x-toast />

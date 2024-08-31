@@ -9,34 +9,30 @@ class ApiConfigRepository
 {
     public function baseUrl(): string
     {
-        $url = config('api.pterodactyl.url');
-
-        if (!str_ends_with($url, '/')) {
-            $url = $url . '/';
-        }
+        $url = setting('pterodactyl_api_url');
 
         return $url;
     }
 
     public function clientToken(): string
     {
-        return config('api.pterodactyl.user_token');
+        return setting('pterodactyl_api_user_key');
     }
 
     public function applicationToken(): string
     {
-        return config('api.pterodactyl.admin_token');
+        return setting('pterodactyl_api_admin_key');
     }
 
     public function client(): PendingRequest
     {
         return Http::withToken($this->clientToken())
-            ->baseUrl($this->baseUrl() . 'client/');
+            ->baseUrl($this->baseUrl() . '/client/');
     }
 
     public function application(): PendingRequest
     {
         return Http::withToken($this->applicationToken())
-            ->baseUrl($this->baseUrl() . 'application/');
+            ->baseUrl($this->baseUrl() . '/application/');
     }
 }

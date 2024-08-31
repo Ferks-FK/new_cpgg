@@ -1,15 +1,9 @@
 <?php
 
 return [
-    // TODO: Change this when settings are added to the database
-
     'default' => env('API_PROVIDER', 'pterodactyl'),
 
     'pterodactyl' => [
-        'url' => env('PTERODACTYL_API_URL'),
-        'user_token ' => env('PTERODACTYL_API_USER_TOKEN'),
-        'admin_token' => env('PTERODACTYL_API_ADMIN_TOKEN'),
-
         'bindings' => [
             App\Contracts\ServerRepositoryInterface::class => App\Repositories\Pterodactyl\ServerRepository::class,
             App\Contracts\NodeRepositoryInterface::class => App\Repositories\Pterodactyl\NodeRepository::class,
@@ -20,9 +14,6 @@ return [
     ],
 
     'pelican' => [
-        'url' => env('PELICAN_API_URL'),
-        'token' => env('PELICAN_API_TOKEN'),
-
         'bindings' => [
             App\Contracts\ServerRepositoryInterface::class => App\Repositories\Pelican\ServerRepository::class,
             // App\Contracts\NodeRepositoryInterface::class => App\Repositories\Pelican\NodeRepository::class,

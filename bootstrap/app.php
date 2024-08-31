@@ -32,6 +32,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 Route::group([], base_path('routes/admin/users.php'));
                 Route::group([], base_path('routes/admin/store.php'));
                 Route::group([], base_path('routes/admin/gateways.php'));
+                Route::group([], base_path('routes/admin/settings.php'));
             });
 
             Route::middleware('api')->prefix('api')->group(function() {

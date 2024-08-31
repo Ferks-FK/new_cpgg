@@ -11,6 +11,7 @@ import adminServers from './modules/admin/servers';
 import products from './modules/admin/products';
 import store from './modules/admin/store';
 import gateways from './modules/admin/gateways';
+import settings from './modules/admin/settings';
 
 // Client Imports
 import servers from './modules/servers';
@@ -47,5 +48,6 @@ Alpine.data('adminServers', adminServers);
 Alpine.data('products', products);
 Alpine.data('store', store);
 Alpine.data('gateways', gateways);
+Alpine.data('settings', settings);
 
 Alpine.start();

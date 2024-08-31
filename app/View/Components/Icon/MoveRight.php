@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components\Navbar;
+namespace App\View\Components\Icon;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Link extends Component
+class MoveRight extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class Link extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.navbar.link');
+        return view('components.icon.move-right');
     }
 }
