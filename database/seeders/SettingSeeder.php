@@ -17,8 +17,7 @@ class SettingSeeder extends Seeder
         if (config('app.debug') === true) {
             $settings = [
                 'pterodactyl_api_url' => env('PTERODACTYL_API_URL'),
-                'pterodactyl_api_user_key' => env('PTERODACTYL_API_USER_KEY'),
-                'pterodactyl_api_admin_key' => env('PTERODACTYL_API_ADMIN_KEY'),
+                'pterodactyl_api_key' => env('PTERODACTYL_API_KEY')
             ];
 
             Setting::updateSettings($settings);
