@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Users;
 use App\Http\Requests\Admin\User\UpdateUserRequest;
 use App\Contracts\Eloquent\UserRepositoryInterface as EloquentUserRepositoryInterface;
 use App\Contracts\UserRepositoryInterface;
-use Exception;
+use App\Exceptions\Repositories\Pterodactyl\ValidationException;
 
 class UpdateUserController
 {
@@ -27,8 +27,8 @@ class UpdateUserController
 
         try {
             $this->userRepositoryInterface->update($data, $user->pterodactyl_id);
-        } catch (Exception $exception) {
-            throw new Exception($exception->getMessage());
+        } catch (ValidationException $exception) {
+            $exception->throwValidationException();
         } finally {
             unset($data['username']);
         }

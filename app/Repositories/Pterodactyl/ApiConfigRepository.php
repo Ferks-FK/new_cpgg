@@ -27,12 +27,14 @@ class ApiConfigRepository
     public function client(): PendingRequest
     {
         return Http::withToken($this->clientToken())
+            ->acceptJson()
             ->baseUrl($this->baseUrl() . '/client/');
     }
 
     public function application(): PendingRequest
     {
         return Http::withToken($this->applicationToken())
+            ->acceptJson()
             ->baseUrl($this->baseUrl() . '/application/');
     }
 }

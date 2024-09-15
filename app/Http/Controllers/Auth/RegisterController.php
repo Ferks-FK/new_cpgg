@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Contracts\Eloquent\UserRepositoryInterface as EloquentUserContract;
 use App\Contracts\UserRepositoryInterface;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Exceptions\Repositories\Pterodactyl\ValidationException;
 use Exception;
 
 class RegisterController
@@ -28,8 +29,8 @@ class RegisterController
 
         try {
             $response = $this->userRepositoryInterface->create($data);
-        } catch (Exception $exception) {
-            throw new Exception($exception->getMessage());
+        } catch (ValidationException $exception) {
+            $exception->throwValidationException();
         } finally {
             unset($data['username']);
         }

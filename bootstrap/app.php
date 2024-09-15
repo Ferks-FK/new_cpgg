@@ -26,7 +26,7 @@ return Application::configure(basePath: dirname(__DIR__))
             Route::middleware(['web', 'auth'])
                 ->group(base_path('routes/checkout.php'));
 
-            Route::prefix('admin')->name('admin.')->middleware([])->group(function() {
+            Route::prefix('admin')->name('admin.')->middleware(['web', 'auth'])->group(function() {
                 Route::group([], base_path('routes/admin/products.php'));
                 Route::group([], base_path('routes/admin/servers.php'));
                 Route::group([], base_path('routes/admin/users.php'));

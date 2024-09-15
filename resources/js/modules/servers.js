@@ -62,17 +62,15 @@ export default () => ({
             for (const field in errors) {
                 this.form.errors[field] = errors[field][0];
 
-                for (const field in errors) {
-                    if (field.startsWith('egg_variables.')) {
-                        const [_, index, subField] = field.split('.');
+				if (field.startsWith('egg_variables.')) {
+					const [_, index, subField] = field.split('.');
 
-                        if (this.form.errors.egg_variables[index] === undefined) {
-                            this.form.errors.egg_variables[index] = {};
-                        }
+					if (this.form.errors.egg_variables[index] === undefined) {
+						this.form.errors.egg_variables[index] = {};
+					}
 
-                        this.form.errors.egg_variables[index][subField] = errors[field];
-                    }
-                }
+					this.form.errors.egg_variables[index][subField] = errors[field];
+				}
             }
         }
     },

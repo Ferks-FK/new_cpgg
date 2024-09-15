@@ -7,12 +7,12 @@
             <x-form x-on:submit.prevent="handleLogin()">
                 <x-form.group>
                     <x-form.label for="email">Email</x-form.label>
-                    <x-form.input x-model="form.data.email" type="email" icon="icon.mail" id="email"/>
+                    <x-form.input x-model="form.data.email" type="email" id="email"/>
                     <x-form.error x-show="form.errors.email" x-text="form.errors.email"/>
                 </x-form.group>
                 <x-form.group>
                     <x-form.label for="password">Password</x-form.label>
-                    <x-form.input x-model="form.data.password" type="password" icon="icon.lock" id="password"/>
+                    <x-form.input x-model="form.data.password" type="password" id="password"/>
                     <x-form.error x-show="form.errors.password" x-text="form.errors.password"/>
                 </x-form.group>
                 <div class="flex items-center gap-1">

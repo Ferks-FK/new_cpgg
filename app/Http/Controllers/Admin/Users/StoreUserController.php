@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Users;
 
 use App\Contracts\Eloquent\UserRepositoryInterface as EloquentUserRepositoryInterface;
 use App\Contracts\UserRepositoryInterface;
+use App\Exceptions\Repositories\Pterodactyl\ValidationException;
 use App\Http\Requests\Admin\User\CreateUserRequest;
 use Exception;
 
@@ -25,8 +26,8 @@ class StoreUserController
 
         try {
             $response = $this->userRepositoryInterface->create($data);
-        } catch (Exception $exception) {
-            throw new Exception($exception->getMessage());
+        } catch (ValidationException $exception) {
+            $exception->throwValidationException();
         } finally {
             unset($data['username']);
         }

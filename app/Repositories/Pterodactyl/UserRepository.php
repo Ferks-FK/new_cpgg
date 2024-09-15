@@ -3,6 +3,7 @@
 namespace App\Repositories\Pterodactyl;
 
 use App\Contracts\UserRepositoryInterface;
+use App\Exceptions\Repositories\Pterodactyl\ValidationException;
 use Exception;
 
 class UserRepository extends ApiConfigRepository implements UserRepositoryInterface
@@ -21,30 +22,40 @@ class UserRepository extends ApiConfigRepository implements UserRepositoryInterf
     {
         try {
             $response = $this->application()->post('users', $data);
+
+            if ($response->failed()) {
+                $fields = [
+                    'username' => 'first_name'
+                ];
+
+                throw new ValidationException($response->json('errors'), $fields);
+            }
+
+            return $response->json();
+        } catch (ValidationException $exception) {
+            throw $exception;
         } catch (Exception $exception) {
             throw new Exception($exception->getMessage());
         }
-
-        if ($response->failed()) {
-            throw new Exception('Failed to create user.');
-        }
-
-        return $response->json();
     }
 
     public function update(array $data, int $id)
     {
         try {
             $response = $this->application()->patch("users/$id", $data);
+
+            if ($response->failed()) {
+                $fields = [
+                    'username' => 'first_name'
+                ];
+
+                throw new ValidationException($response->json('errors'), $fields);
+            }
+        } catch (ValidationException $exception) {
+            throw $exception;
         } catch (Exception $exception) {
             throw new Exception($exception->getMessage());
         }
-
-        if ($response->failed()) {
-            throw new Exception('Failed to update user.');
-        }
-
-        return $response->json();
     }
 
     public function delete(int $id)

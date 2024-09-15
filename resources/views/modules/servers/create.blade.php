@@ -148,8 +148,8 @@
                         <template x-for="(input, index) in form.data.egg_variables" :key="index">
                             <x-form.group>
                                 <x-form.label x-text="input.label" x-bind:for="input.id"/>
-                                <x-form.input x-model="input.value" x-bind:id="input.id" x-on:input="form.errors.egg_variables[index].value = null"/>
-                                <x-form.error x-show="form.errors.egg_variables[index] && form.errors.egg_variables[index].value" x-text="form.errors.egg_variables[index] && form.errors.egg_variables[index].value ? form.errors.egg_variables[index].value[0] : ''"/>
+                                <x-form.input x-model="input.value" x-bind:id="input.id" x-on:input="form.errors[`egg_variables.${index}.value`] = null"/>
+                                <x-form.error x-show="form.errors[`egg_variables.${index}.value`]" x-text="form.errors[`egg_variables.${index}.value`]"/>
                             </x-form.group>
                         </template>
                     </x-form>

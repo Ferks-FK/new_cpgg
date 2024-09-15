@@ -26,14 +26,15 @@ class CreateServerRequest extends FormRequest
             'egg_id' => 'required|integer',
             'location_id' => 'required|integer',
             'product_id' => 'required|exists:products,id',
-            'egg_variables' => 'nullable|array'
+            'egg_variables' => 'nullable|array',
+            'egg_variables.*.id' => 'required|string',
+            'egg_variables.*.label' => 'required|string',
+            'egg_variables.*.type' => 'required|string',
+
         ];
 
         if (!empty($this->egg_variables)) {
             foreach ($this->egg_variables as $key => $egg_variable) {
-                $rules["egg_variables.$key.id"] = 'required|string';
-                $rules["egg_variables.$key.label"] = 'required|string';
-                $rules["egg_variables.$key.type"] = 'required|string';
                 $rules["egg_variables.$key.value"] = $egg_variable['rules'];
             }
         }
@@ -47,7 +48,7 @@ class CreateServerRequest extends FormRequest
 
         if (!empty($this->egg_variables)) {
             foreach ($this->egg_variables as $key => $egg_variable) {
-                $attributes["egg_variables.$key.value"] = $egg_variable['label'];
+                $attributes["egg_variables.$key.value"] = __($egg_variable['label']);
             }
         }
 
