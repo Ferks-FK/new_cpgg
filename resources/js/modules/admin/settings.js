@@ -7,16 +7,14 @@ export default () => ({
             site_url: '',
             credits_display: '',
             pterodactyl_api_url: '',
-            pterodactyl_api_user_key: '',
-            pterodactyl_api_admin_key: '',
+            pterodactyl_api_key: '',
         },
         errors: {
             site_name: null,
             site_url: null,
             credits_display: null,
             pterodactyl_api_url: null,
-            pterodactyl_api_user_key: null,
-            pterodactyl_api_admin_key: null,
+            pterodactyl_api_key: null,
         },
         loading: false
     },

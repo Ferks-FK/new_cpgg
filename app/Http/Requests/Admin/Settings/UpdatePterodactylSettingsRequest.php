@@ -23,11 +23,13 @@ class UpdatePterodactylSettingsRequest extends FormRequest
     {
         return [
             'pterodactyl_api_url' => 'required|url',
-            'pterodactyl_api_user_key' => 'required|string',
-            'pterodactyl_api_admin_key' => 'required|string',
+            'pterodactyl_api_key' => 'required|string'
         ];
     }
 
+    /**
+     * Prepare the data for validation.
+     */
     protected function prepareForValidation()
     {
         $this->merge([

@@ -18,8 +18,8 @@
             <x-navbar.item route="{{ route('admin.products') }}" label="Products" icon="icon.sliders" active="{{ request()->is(['admin/products', 'admin/products/*']) }}"/>
             <x-navbar.item route="{{ route('admin.store') }}" label="Store" icon="icon.shopping-basket" active="{{ request()->is(['admin/store', 'admin/store/*']) }}"/>
             <x-navbar.item route="{{ route('admin.gateways') }}" label="Gateways" icon="icon.hand-coins" active="{{ request()->is(['admin/gateways', 'admin/gateways/*']) }}"/>
-            <x-navbar.dropdown label="Settings" icon="icon.settings" active="{{ request()->is(['admin/settings', 'admin/settings/pterodactyl']) }}">
-                <x-navbar.dropdown-item route="{{ route('admin.settings') }}" label="Global" active="{{ request()->is(['admin/settings']) }}"/>
+            <x-navbar.dropdown label="Settings" icon="icon.settings" active="{{ request()->is(['admin/settings/global', 'admin/settings/pterodactyl']) }}">
+                <x-navbar.dropdown-item route="{{ route('admin.settings.global') }}" label="Global" active="{{ request()->is(['admin/settings/global']) }}"/>
                 <x-navbar.dropdown-item route="{{ route('admin.settings.pterodactyl') }}" label="Pterodactyl" active="{{ request()->is(['admin/settings/pterodactyl', 'admin/settings/pterodactyl/*']) }}"/>
             </x-navbar.dropdown>
         </x-navbar.group>

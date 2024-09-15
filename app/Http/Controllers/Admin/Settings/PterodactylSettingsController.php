@@ -15,8 +15,7 @@ class PterodactylSettingsController
     {
         $settings = [
             'pterodactyl_api_url' => setting('pterodactyl_api_url'),
-            'pterodactyl_api_user_key' => setting('pterodactyl_api_user_key'),
-            'pterodactyl_api_admin_key' => setting('pterodactyl_api_admin_key'),
+            'pterodactyl_api_key' => setting('pterodactyl_api_key')
         ];
 
         return view('modules.admin.settings.pterodactyl', compact('settings'));

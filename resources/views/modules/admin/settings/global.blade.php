@@ -11,7 +11,7 @@
         </x-module.header>
         <x-card>
             <x-card.content>
-                <x-form x-on:submit.prevent="updateSettings('settings')">
+                <x-form x-on:submit.prevent="updateSettings('settings/global')">
                     <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
                         <x-form.group>
                             <x-form.label for="siteName">Site Name:</x-form.label>

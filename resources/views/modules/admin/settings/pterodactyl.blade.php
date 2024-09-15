@@ -17,18 +17,11 @@
                         <x-form.input x-model="form.data.pterodactyl_api_url" id="pterodactylUrl"/>
                         <x-form.error x-show="form.errors.pterodactyl_api_url" x-text="form.errors.pterodactyl_api_url"/>
                     </x-form.group>
-                    <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
-                        <x-form.group>
-                            <x-form.label for="pterodactylUserKey">Pterodactyl User Key:</x-form.label>
-                            <x-form.input x-model="form.data.pterodactyl_api_user_key" id="pterodactylUserKey"/>
-                            <x-form.error x-show="form.errors.pterodactyl_api_user_key" x-text="form.errors.pterodactyl_api_user_key"/>
-                        </x-form.group>
-                        <x-form.group>
-                            <x-form.label for="pterodactylAdminKey">Pterodactyl Admin Key:</x-form.label>
-                            <x-form.input x-model="form.data.pterodactyl_api_admin_key" id="pterodactylAdminKey"/>
-                            <x-form.error x-show="form.errors.pterodactyl_api_admin_key" x-text="form.errors.pterodactyl_api_admin_key"/>
-                        </x-form.group>
-                    </div>
+                    <x-form.group>
+                        <x-form.label for="pterodactylApiKey">Pterodactyl User Key:</x-form.label>
+                        <x-form.input x-model="form.data.pterodactyl_api_key" id="pterodactylApiKey"/>
+                        <x-form.error x-show="form.errors.pterodactyl_api_key" x-text="form.errors.pterodactyl_api_key"/>
+                    </x-form.group>
                     <x-form.footer>
                         <x-button type="submit">
                             <span x-show="!form.loading">

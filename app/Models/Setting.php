@@ -28,8 +28,7 @@ class Setting extends Model
      * @var array
      */
     private static array $encrypted = [
-        'pterodactyl_api_user_key',
-        'pterodactyl_api_admin_key'
+        'pterodactyl_api_key',
     ];
 
     public function getValueAttribute($value)
