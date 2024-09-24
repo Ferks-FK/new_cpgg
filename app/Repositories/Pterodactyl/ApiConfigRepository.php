@@ -9,12 +9,12 @@ class ApiConfigRepository
 {
     public function baseUrl(): string
     {
-        return setting('pterodactyl_api_url');
+        return setting('panel_url');
     }
 
     public function token(): string
     {
-        return setting('pterodactyl_api_key');
+        return setting('panel_api_key');
     }
 
     public function client(): PendingRequest

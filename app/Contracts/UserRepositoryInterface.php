@@ -6,7 +6,7 @@ interface UserRepositoryInterface
 {
     public function all();
 
-    public function find(int $id);
+    public function find();
 
     public function create(array $data);
 
