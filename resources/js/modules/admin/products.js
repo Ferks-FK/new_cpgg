@@ -137,6 +137,18 @@ export default () => ({
 
     setProductData(product) {
         this.form.data = Object.assign({}, this.form.data, product)
+
+        this.$nextTick(() => {
+            this.$dispatch('multiselect-set', {
+                id: 'nodes',
+                values: this.form.data.nodes
+            })
+
+            this.$dispatch('multiselect-set', {
+                id: 'eggs',
+                values: this.form.data.eggs
+            })
+        })
     },
 
     setNodesData(nodes) {
@@ -145,5 +157,5 @@ export default () => ({
 
     setEggsData(eggs) {
         this.eggs = eggs
-    }
+    },
 })

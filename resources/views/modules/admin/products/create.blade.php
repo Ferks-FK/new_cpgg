@@ -6,7 +6,7 @@
         <x-breadcrumb.item icon="icon.sliders" href="{{ route('admin.products') }}">Products</x-breadcrumb.item>
         <x-breadcrumb.item href="#">Create Product</x-breadcrumb.item>
     </x-breadcrumb>
-    <x-module x-data="products()" x-init="setNodesData({{ json_encode($nodes) }}); setEggsData({{ json_encode($eggs) }})">
+    <x-module x-data="products()" x-on:multiselect-updated.window="form.data[$event.detail.id] = $event.detail.values; console.log(form.data)" x-init="setNodesData({{ json_encode($nodes) }}); setEggsData({{ json_encode($eggs) }})">
         <x-module.header>
             <x-module.title>Create Product</x-module.title>
         </x-module.header>
@@ -108,7 +108,7 @@
             <x-card.content>
                 <x-form.group>
                     <x-form.label for="nodes">Nodes</x-form.label>
-                    <x-multiselect name="form.data.nodes">
+                    <x-multiselect id="nodes">
                         <template x-for="node in nodes" :key="node.attributes.id">
                             <x-multiselect.option x-bind:value="node.attributes.id" x-text="node.attributes.name"></x-multiselect.option>
                         </template>
@@ -116,7 +116,7 @@
                 </x-form.group>
                 <x-form.group>
                     <x-form.label for="eggs">Eggs</x-form.label>
-                    <x-multiselect name="form.data.eggs">
+                    <x-multiselect id="eggs">
                         <template x-for="egg in eggs" :key="egg.attributes.id">
                             <x-multiselect.option x-bind:value="egg.attributes.id" x-text="egg.attributes.name"/>
                         </template>
