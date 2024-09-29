@@ -43,7 +43,7 @@
                                     <x-table.td>
                                         <span x-text="product.name"></span>
                                     </x-table.td>
-                                    <x-table.td>
+                                    <x-table.td class="overflow-hidden whitespace-nowrap text-ellipsis max-w-[400px]">
                                         <span x-text="product.description"></span>
                                     </x-table.td>
                                     <x-table.td>
