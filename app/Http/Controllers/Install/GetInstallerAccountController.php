@@ -34,9 +34,11 @@ class GetInstallerAccountController
         $data = $request->validated();
 
         try {
-            $response = $this->userRepositoryInterface->find();
+            $response = $this->userRepositoryInterface->find(
+                filters: ['email' => $data['email']]
+            );
 
-            if ($response['attributes']['admin']) {
+            if ($response['data'][0]['attributes']['root_admin']) {
                 $this->eloquentUserContract->create($data);
 
                 setEnvironmentValue('APP_INSTALLED', 'true');

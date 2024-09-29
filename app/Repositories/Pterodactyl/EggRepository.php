@@ -7,12 +7,12 @@ use Exception;
 
 class EggRepository extends ApiConfigRepository implements EggRepositoryInterface
 {
-    public function all(array $includes = ['eggs'])
+    public function all(array $includes = ['eggs', 'eggs.variables'])
     {
-        $valid_includes = array_intersect($includes, $this->validIncludes('nests'));
+        $includes = $this->getIncludes($includes, 'nests');
 
         try {
-            $response = $this->application()->get("nests?include=" . implode(',', $valid_includes));
+            $response = $this->application()->get('nests' . $includes);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -34,10 +34,10 @@ class EggRepository extends ApiConfigRepository implements EggRepositoryInterfac
 
     public function getEggAttributes(int $egg_id, array $includes = ['eggs.variables'])
     {
-        $valid_includes = array_intersect($includes, $this->validIncludes('nests'));
+        $includes = $this->getIncludes($includes, 'nests');
 
         try {
-            $response = $this->application()->get("nests?include=" . implode(',', $valid_includes));
+            $response = $this->application()->get('nests' . $includes);
         } catch (Exception $exception) {
             throw new Exception($exception->getMessage());
         }
@@ -59,14 +59,5 @@ class EggRepository extends ApiConfigRepository implements EggRepositoryInterfac
         }
 
         return empty($egg_attributes) ? $egg_attributes : $egg_attributes[0];
-    }
-
-    private function validIncludes(string $endpoint)
-    {
-        return match ($endpoint) {
-            'nests' => ['eggs', 'eggs.variables', 'servers'],
-            'nest-eggs' => ['nest', 'servers', 'config', 'script', 'variables'],
-            default => [],
-        };
     }
 }

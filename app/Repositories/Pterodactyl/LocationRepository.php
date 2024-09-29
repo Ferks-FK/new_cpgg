@@ -9,10 +9,10 @@ class LocationRepository extends ApiConfigRepository implements LocationReposito
 {
     public function all(array $includes = [])
     {
-        $valid_includes = array_intersect($includes, $this->validIncludes('locations'));
+        $includes = $this->getIncludes($includes, 'locations');
 
         try {
-            $response = $this->application()->get("locations?include=" . implode(',', $valid_includes));
+            $response = $this->application()->get('locations' . $includes);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -26,10 +26,10 @@ class LocationRepository extends ApiConfigRepository implements LocationReposito
 
     public function findById(int $id, array $includes = [])
     {
-        $valid_includes = array_intersect($includes, $this->validIncludes('locations'));
+        $includes = $this->getIncludes($includes, 'locations');
 
         try {
-            $response = $this->application()->get("locations/$id?include=" . implode(',', $valid_includes));
+            $response = $this->application()->get("locations/$id" . $includes);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -39,13 +39,5 @@ class LocationRepository extends ApiConfigRepository implements LocationReposito
         }
 
         return $response->json();
-    }
-
-    private function validIncludes(string $endpoint)
-    {
-        return match ($endpoint) {
-            'locations' => ['nodes', 'servers'],
-            default => [],
-        };
     }
 }

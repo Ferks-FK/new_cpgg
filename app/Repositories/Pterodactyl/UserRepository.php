@@ -13,10 +13,12 @@ class UserRepository extends ApiConfigRepository implements UserRepositoryInterf
         //
     }
 
-    public function find()
+    public function find(array $filters = [])
     {
+        $filters = $this->getFilters($filters, 'users');
+
         try {
-            $response = $this->client()->get('account');
+            $response = $this->application()->get('users' . $filters);
 
             if ($response->failed()) {
                 throw new Exception('Failed to find user.');

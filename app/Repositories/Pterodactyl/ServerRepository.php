@@ -11,10 +11,10 @@ class ServerRepository extends ApiConfigRepository implements ServerRepositoryIn
 {
     public function all(array $includes = [])
     {
-        $valid_includes = array_intersect($includes, $this->validIncludes('servers'));
+        $includes = $this->getIncludes($includes, 'servers');
 
         try {
-            $response = $this->application()->get('servers?include=' . implode(',', $valid_includes));
+            $response = $this->application()->get('servers' . $includes);
         } catch (Exception $exception) {
             throw new Exception($exception->getMessage());
         }
@@ -28,10 +28,10 @@ class ServerRepository extends ApiConfigRepository implements ServerRepositoryIn
 
     public function findById(int $id, array $includes = [])
     {
-        $valid_includes = array_intersect($includes, $this->validIncludes('servers'));
+        $includes = $this->getIncludes($includes, 'servers');
 
         try {
-            $response = $this->application()->get("servers/{$id}?include=" . implode(',', $valid_includes));
+            $response = $this->application()->get("servers/{$id}" . $includes);
         } catch (Exception $exception) {
             throw new Exception($exception->getMessage());
         }
@@ -171,14 +171,5 @@ class ServerRepository extends ApiConfigRepository implements ServerRepositoryIn
         }
 
         return $variables;
-    }
-
-    private function validIncludes(string $endpoint)
-    {
-        return match ($endpoint) {
-            'servers' => ['allocations', 'user', 'subusers', 'nest', 'egg', 'variables', 'location', 'node', 'databases'],
-            'server-databases' => ['password', 'host'],
-            default => [],
-        };
     }
 }

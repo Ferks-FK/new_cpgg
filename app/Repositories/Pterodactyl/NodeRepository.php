@@ -9,10 +9,10 @@ class NodeRepository extends ApiConfigRepository implements NodeRepositoryInterf
 {
     public function all(array $includes = [])
     {
-        $valid_includes = array_intersect($includes, $this->validIncludes('nodes'));
+        $includes = $this->getIncludes($includes, 'nodes');
 
         try {
-            $response = $this->application()->get("nodes?include=" . implode(',', $valid_includes));
+            $response = $this->application()->get('nodes' . $includes);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -45,14 +45,5 @@ class NodeRepository extends ApiConfigRepository implements NodeRepositoryInterf
         }
 
         return $freeAllocations;
-    }
-
-    private function validIncludes(string $endpoint)
-    {
-        return match ($endpoint) {
-            'nodes' => ['allocations', 'location', 'servers'],
-            'node-allocations' => ['node', 'server'],
-            default => [],
-        };
     }
 }
