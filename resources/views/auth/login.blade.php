@@ -2,7 +2,7 @@
 
 @section('content')
     <x-module x-data="login()">
-        <div class="flex flex-col gap-5 border-t-[3px] border-blue-500 rounded py-5 px-3 bg-zinc-700 min-w-[350px] shadow-md">
+        <div class="flex flex-col gap-5 border-t-[3px] border-blue-500 rounded py-5 px-3 bg-gray-600 min-w-[350px] shadow-md">
             <h1 class="text-lg text-center">Login to start your session</h1>
             <x-form x-on:submit.prevent="handleLogin()">
                 <x-form.group>

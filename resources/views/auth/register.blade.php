@@ -2,7 +2,7 @@
 
 @section('content')
     <x-module x-data="register()">
-        <div class="flex flex-col gap-5 border-t-[3px] border-blue-500 rounded py-5 px-3 bg-zinc-700 min-w-[350px] shadow-md">
+        <div class="flex flex-col gap-5 border-t-[3px] border-blue-500 rounded py-5 px-3 bg-gray-600 min-w-[350px] shadow-md">
             <h1 class="text-lg text-center">Register a new membership</h1>
             <x-form x-init="form.data" x-on:submit.prevent="handleRegister()">
                 <div class="grid grid-cols-1 gap-5 md:grid-cols-2">

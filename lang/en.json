@@ -1,3 +1,4 @@
 {
-    "The :attribute has already been taken.": "The :attribute has already been taken."
+    "The :attribute has already been taken.": "The :attribute has already been taken.",
+    "The email address provided is not associated with a root administrator on :attribute panel.": "The email address provided is not associated with a root administrator on :attribute panel."
 }

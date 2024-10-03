@@ -10,11 +10,11 @@
     @vite('resources/css/app.css')
 </head>
 <body x-cloak x-data="installer()" class="text-white bg-gray-700">
-    <div class="flex items-center justify-center h-screen px-4">
-        <div class="w-full max-w-3xl p-4 bg-gray-600 rounded-lg shadow-lg">
+    <div class="flex items-center justify-center p-4 md:h-full">
+        <div class="w-full max-w-6xl p-4 bg-gray-600 rounded-lg shadow-lg">
             <h1 class="mb-5 text-xl font-bold text-center">Panel Installer</h1>
-            <ol class="flex flex-col border-t select-none rounded-t-xl border-x border-slate-500">
-                <li class="pl-6 border-b border-slate-500">
+            <ol class="flex flex-col w-full border-t select-none md:flex-row rounded-t-xl border-x border-slate-500">
+                <li class="relative flex w-full pl-6 border-b border-slate-500">
                     <div
                         class="flex items-center gap-4 py-3"
                         x-bind:class="{
@@ -31,12 +31,15 @@
                         >
                             <span class="text-sm font-medium">01</span>
                         </div>
-                        <div class="flex flex-col">
-                            <span class="text-sm font-medium">Enviroment Requirements</span>
-                        </div>
+                        <span class="flex-1 text-sm font-medium">Enviroment Requirements</span>
+                    </div>
+                    <div class="absolute hidden w-5 h-full end-0 md:block">
+                        <svg fill="none" preserveAspectRatio="none" viewBox="0 0 22 80" class="w-full h-full text-slate-500">
+                            <path d="M0 -2L20 40L0 82" stroke-linejoin="round" stroke="currentcolor" vector-effect="non-scaling-stroke"></path>
+                        </svg>
                     </div>
                 </li>
-                <li class="pl-6 border-b border-slate-500">
+                <li class="relative flex w-full pl-6 border-b border-slate-500">
                     <div
                         class="flex items-center gap-4 py-3"
                         x-bind:class="{
@@ -54,12 +57,15 @@
                         >
                             <span class="text-sm font-medium">02</span>
                         </div>
-                        <div class="flex flex-col">
-                            <span class="text-sm font-medium">Database</span>
-                        </div>
+                        <span class="flex-1 text-sm font-medium">Database</span>
+                    </div>
+                    <div class="absolute hidden w-5 h-full end-0 md:block">
+                        <svg fill="none" preserveAspectRatio="none" viewBox="0 0 22 80" class="w-full h-full text-slate-500">
+                            <path d="M0 -2L20 40L0 82" stroke-linejoin="round" stroke="currentcolor" vector-effect="non-scaling-stroke"></path>
+                        </svg>
                     </div>
                 </li>
-                <li class="pl-6 border-b border-slate-500">
+                <li class="relative flex w-full pl-6 border-b border-slate-500">
                     <div
                         class="flex items-center gap-4 py-3"
                         x-bind:class="{
@@ -76,12 +82,15 @@
                         >
                             <span class="text-sm font-medium">03</span>
                         </div>
-                        <div class="flex flex-col">
-                            <span class="text-sm font-medium">Enviroment</span>
-                        </div>
+                        <span class="flex-1 text-sm font-medium">Enviroment</span>
+                    </div>
+                    <div class="absolute hidden w-5 h-full end-0 md:block">
+                        <svg fill="none" preserveAspectRatio="none" viewBox="0 0 22 80" class="w-full h-full text-slate-500">
+                            <path d="M0 -2L20 40L0 82" stroke-linejoin="round" stroke="currentcolor" vector-effect="non-scaling-stroke"></path>
+                        </svg>
                     </div>
                 </li>
-                <li class="pl-6 border-b border-slate-500">
+                <li class="flex w-full pl-6 border-b border-slate-500">
                     <div
                         class="flex items-center gap-4 py-3"
                         x-bind:class="{
@@ -98,9 +107,7 @@
                         >
                             <span class="text-sm font-medium">04</span>
                         </div>
-                        <div class="flex flex-col">
-                            <span class="text-sm font-medium">Account</span>
-                        </div>
+                        <span class="flex-1 text-sm font-medium">Account</span>
                     </div>
                 </li>
             </ol>
