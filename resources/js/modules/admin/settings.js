@@ -3,15 +3,15 @@ import axios from '../../services/axios';
 export default () => ({
     form: {
         data: {
-            site_name: '',
-            site_url: '',
+            app_name: '',
+            app_url: '',
             credits_display: '',
             pterodactyl_api_url: '',
             pterodactyl_api_key: '',
         },
         errors: {
-            site_name: null,
-            site_url: null,
+            app_name: null,
+            app_url: null,
             credits_display: null,
             pterodactyl_api_url: null,
             pterodactyl_api_key: null,

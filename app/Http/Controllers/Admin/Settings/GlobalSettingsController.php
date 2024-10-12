@@ -14,8 +14,8 @@ class GlobalSettingsController
     public function __invoke(Request $request)
     {
         $settings = [
-            'site_name' => setting('site_name'),
-            'site_url' => setting('site_url'),
+            'app_name' => setting('app_name'),
+            'app_url' => setting('app_url'),
             'favicon' => setting('favicon'),
             'logo' => setting('logo'),
             'timezone' => setting('timezone'),

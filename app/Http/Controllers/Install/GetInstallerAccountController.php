@@ -25,9 +25,7 @@ class GetInstallerAccountController
      */
     public function __invoke(Request $request)
     {
-        $account = [];
-
-        return view('installer.account', compact('account'));
+        return view('installer.account');
     }
 
     public function store(StoreInstallerAccountRequest $request)
@@ -46,6 +44,8 @@ class GetInstallerAccountController
             }
 
             if ($response['data'][0]['attributes']['root_admin']) {
+                $data['pterodactyl_id'] = $response['data'][0]['attributes']['id'];
+
                 $this->eloquentUserContract->create($data);
 
                 setEnvironmentValue('APP_INSTALLED', 'true');
@@ -63,7 +63,6 @@ class GetInstallerAccountController
                 'message' => 'For security reasons, a non-administrator account cannot be used to install this panel.'
             ], 400);
         } catch (ValidationException $exception) {
-            logger($exception->getMessage());
             $exception->throwValidationException();
         } finally {
             unset($data['username']);

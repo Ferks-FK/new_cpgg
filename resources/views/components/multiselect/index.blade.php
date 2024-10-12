@@ -27,7 +27,7 @@
     x-on:keydown.escape.window="isOpen = false"
     x-on:multiselect-set.window="if($event.detail.id == $el.getAttribute('id')) selectedOptions = $event.detail.values"
 >
-    <div class="relative">
+    <div class="relative select-none">
         <div x-ref="multiselect" x-on:click="isOpen = !isOpen" class="flex items-center h-auto gap-1 px-2 py-1 border rounded-md cursor-pointer min-h-10 focus-visible:border-zinc-400/70 focus-visible:outline-none focus-visible:border-blue-300 border-zinc-400">
             <span x-show="selectedOptions.length === 0">Select...</span>
             <div class="flex items-center justify-between w-full">

@@ -22,8 +22,8 @@ class UpdateGlobalSettingsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'site_name' => 'required|string',
-            'site_url' => 'nullable|url',
+            'app_name' => 'required|string',
+            'app_url' => 'nullable|url',
             'credits_display' => 'required|string',
         ];
     }

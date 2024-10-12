@@ -41,7 +41,7 @@ class CreateServerController
                 return $db_egg;
             });
 
-        // check if location has nodess
+        // check if location has nodes
         $locations = collect($locations)->filter(function ($location) {
             return count($location['attributes']['relationships']['nodes']['data']) > 0;
         });

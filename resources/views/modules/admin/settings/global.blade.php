@@ -15,13 +15,13 @@
                     <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
                         <x-form.group>
                             <x-form.label for="siteName">Site Name:</x-form.label>
-                            <x-form.input x-model="form.data.site_name" id="siteName"/>
-                            <x-form.error x-show="form.errors.site_name" x-text="form.errors.site_name"/>
+                            <x-form.input x-model="form.data.app_name" id="siteName"/>
+                            <x-form.error x-show="form.errors.app_name" x-text="form.errors.app_name"/>
                         </x-form.group>
                         <x-form.group>
                             <x-form.label for="siteUrl">Site URL:</x-form.label>
-                            <x-form.input x-model="form.data.site_url" id="siteUrl"/>
-                            <x-form.error x-show="form.errors.site_url" x-text="form.errors.site_url"/>
+                            <x-form.input x-model="form.data.app_url" id="siteUrl"/>
+                            <x-form.error x-show="form.errors.app_url" x-text="form.errors.app_url"/>
                         </x-form.group>
                     </div>
                     <x-form.group>
