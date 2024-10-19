@@ -4,9 +4,9 @@ namespace App\Contracts\Eloquent;
 
 interface UserRepositoryInterface
 {
-    public function all();
+    public function all(array $relations = []);
 
-    public function findById(int $id);
+    public function findById(int $id, array $relations = []);
 
     public function create(array $data);
 

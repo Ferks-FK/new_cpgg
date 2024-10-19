@@ -5,7 +5,7 @@ namespace App\Repositories\Eloquent;
 use App\Contracts\Eloquent\ProductRepositoryInterface;
 use App\Models\Product;
 
-class ProductRepository implements ProductRepositoryInterface
+class ProductRepository extends EloquentConfigRepository implements ProductRepositoryInterface
 {
     protected $query;
 
@@ -16,9 +16,9 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function getAll(array $relations = [])
     {
-        $valid_relations = array_intersect($relations, $this->validRelations('server'));
+        $relations = $this->getRelations($relations, 'product');
 
-        $this->query->with($valid_relations);
+        $this->query->with($relations);
 
         return $this->query->get();
     }
@@ -30,9 +30,9 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function findById(int $id, array $relations = [])
     {
-        $valid_relations = array_intersect($relations, $this->validRelations('server'));
+        $relations = $this->getRelations($relations, 'product');
 
-        $this->query->with($valid_relations);
+        $this->query->with($relations);
 
         return $this->query->find($id);
     }
@@ -54,13 +54,5 @@ class ProductRepository implements ProductRepositoryInterface
     public function delete(int $id)
     {
         return $this->query->find($id)->delete();
-    }
-
-    private function validRelations(string $relation)
-    {
-        return match ($relation) {
-            'product' => ['servers'],
-            default => [],
-        };
     }
 }

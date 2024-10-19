@@ -5,7 +5,7 @@ namespace App\Repositories\Eloquent;
 use App\Contracts\Eloquent\StoreRepositoryInterface;
 use App\Models\StoreProduct;
 
-class StoreRepository implements StoreRepositoryInterface
+class StoreRepository extends EloquentConfigRepository implements StoreRepositoryInterface
 {
     protected $query;
 
@@ -16,18 +16,18 @@ class StoreRepository implements StoreRepositoryInterface
 
     public function all(array $relations = [])
     {
-        $valid_relations = array_intersect($relations, $this->validRelations('category'));
+        $relations = $this->getRelations($relations, 'storeProduct');
 
-        $this->query->with($valid_relations);
+        $this->query->with($relations);
 
         return $this->query->get();
     }
 
     public function findById(int $id, array $relations = [])
     {
-        $valid_relations = array_intersect($relations, $this->validRelations('category'));
+        $relations = $this->getRelations($relations, 'storeProduct');
 
-        $this->query->with($valid_relations);
+        $this->query->with($relations);
 
         return $this->query->find($id);
     }
@@ -49,13 +49,5 @@ class StoreRepository implements StoreRepositoryInterface
     public function delete(int $id)
     {
         return $this->findById($id)->delete();
-    }
-
-    private function validRelations(string $relation)
-    {
-        return match ($relation) {
-            'category' => ['category'],
-            default => [],
-        };
     }
 }

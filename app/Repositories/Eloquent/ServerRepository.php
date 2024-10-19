@@ -5,7 +5,7 @@ namespace App\Repositories\Eloquent;
 use App\Contracts\Eloquent\ServerRepositoryInterface;
 use App\Models\Server;
 
-class ServerRepository implements ServerRepositoryInterface
+class ServerRepository extends EloquentConfigRepository implements ServerRepositoryInterface
 {
     protected $query;
 
@@ -16,11 +16,20 @@ class ServerRepository implements ServerRepositoryInterface
 
     public function all(array $relations = [])
     {
-        $valid_relations = array_intersect($relations, $this->validRelations('server'));
+        $relations = $this->getRelations($relations, 'server');
 
-        $this->query->with($valid_relations);
+        $this->query->with($relations);
 
         return $this->query->get();
+    }
+
+    public function allActives(array $relations = [])
+    {
+        $relations = $this->getRelations($relations, 'server');
+
+        $this->query->with($relations);
+
+        return $this->query->where('suspended', false)->get();
     }
 
     public function create(array $data)
@@ -30,9 +39,9 @@ class ServerRepository implements ServerRepositoryInterface
 
     public function findById(int $id, array $relations = [])
     {
-        $valid_relations = array_intersect($relations, $this->validRelations('server'));
+        $relations = $this->getRelations($relations, 'server');
 
-        $this->query->with($valid_relations);
+        $this->query->with($relations);
 
         return $this->query->find($id);
     }
@@ -53,13 +62,5 @@ class ServerRepository implements ServerRepositoryInterface
         $model->delete();
 
         return $model;
-    }
-
-    private function validRelations(string $relation)
-    {
-        return match ($relation) {
-            'server' => ['product', 'user'],
-            default => [],
-        };
     }
 }

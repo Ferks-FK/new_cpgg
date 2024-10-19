@@ -7,7 +7,7 @@ use App\Models\Cart;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Str;
 
-class CartRepository implements CartRepositoryInterface
+class CartRepository extends EloquentConfigRepository implements CartRepositoryInterface
 {
     protected $query;
     public $session;
@@ -27,9 +27,9 @@ class CartRepository implements CartRepositoryInterface
 
     public function get(int $user_id, array $relations = [])
     {
-        $valid_relations = array_intersect($relations, $this->validRelations('cart'));
+        $relations = $this->getRelations($relations, 'cart');
 
-        $this->query->with($valid_relations);
+        $this->query->with($relations);
 
         return $this->query->where('user_id', $user_id)->first();
     }
@@ -91,13 +91,5 @@ class CartRepository implements CartRepositoryInterface
             'session' => $this->session,
             'user_id' => auth()->id()
         ]);
-    }
-
-    private function validRelations(string $relation)
-    {
-        return match ($relation) {
-            'cart' => ['items', 'items.product'],
-            default => [],
-        };
     }
 }

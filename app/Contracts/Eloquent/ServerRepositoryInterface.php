@@ -6,6 +6,8 @@ interface ServerRepositoryInterface
 {
     public function all(array $relations = []);
 
+    public function allActives(array $relations = []);
+
     public function create(array $data);
 
     public function findById(int $id, array $relations = []);

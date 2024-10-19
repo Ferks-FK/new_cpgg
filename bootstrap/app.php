@@ -34,7 +34,8 @@ return Application::configure(basePath: dirname(__DIR__))
             Route::middleware('api')->prefix('api')->group(function() {
                 Route::group([], base_path('routes/api/checkout/webhook.php'));
             });
-        }
+        },
+        commands: __DIR__.'/../routes/console.php'
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([

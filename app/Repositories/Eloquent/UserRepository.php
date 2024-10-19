@@ -4,23 +4,30 @@ namespace App\Repositories\Eloquent;
 
 use App\Models\User;
 use App\Contracts\Eloquent\UserRepositoryInterface;
-
-class UserRepository implements UserRepositoryInterface
+class UserRepository extends EloquentConfigRepository implements UserRepositoryInterface
 {
     protected $query;
-    
+
     public function __construct()
     {
         $this->query = User::query();
     }
 
-    public function all()
+    public function all(array $relations = [])
     {
+        $relations = $this->getRelations($relations, 'user');
+
+        $this->query->with($relations);
+
         return $this->query->get();
     }
 
-    public function findById(int $id)
+    public function findById(int $id, array $relations = [])
     {
+        $relations = $this->getRelations($relations, 'user');
+
+        $this->query->with($relations);
+
         return $this->query->find($id);
     }
 

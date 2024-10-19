@@ -21,14 +21,30 @@ class ApiConfigRepository
     {
         return Http::withToken($this->token())
             ->acceptJson()
-            ->baseUrl($this->baseUrl() . '/client/');
+            ->baseUrl($this->baseUrl() . '/client/')
+            ->withOptions([
+                'on_stats' => fn ($stats) => $this->setRateLimitsCache($stats),
+            ]);
     }
 
     public function application(): PendingRequest
     {
         return Http::withToken($this->token())
             ->acceptJson()
-            ->baseUrl($this->baseUrl() . '/application/');
+            ->baseUrl($this->baseUrl() . '/application/')
+            ->withOptions([
+                'on_stats' => fn ($stats) => $this->setRateLimitsCache($stats),
+            ]);
+    }
+
+    private function setRateLimitsCache($stats)
+    {
+        $response = $stats->getResponse();
+
+        if ($response) {
+            cache()->put('rate_limit', $response->getHeader('x-ratelimit-limit')[0] ?? null, 60);
+            cache()->put('rate_limit_remaining', $response->getHeader('x-ratelimit-remaining')[0] ?? null, 60);
+        }
     }
 
     private function validFilters(string $endpoint)

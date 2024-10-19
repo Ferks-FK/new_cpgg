@@ -5,7 +5,7 @@ namespace App\Repositories\Eloquent;
 use App\Models\StoreCategory;
 use App\Contracts\Eloquent\StoreCategoryRepositoryInterface;
 
-class StoreCategoryRepository implements StoreCategoryRepositoryInterface
+class StoreCategoryRepository extends EloquentConfigRepository implements StoreCategoryRepositoryInterface
 {
     protected $query;
 
@@ -16,36 +16,28 @@ class StoreCategoryRepository implements StoreCategoryRepositoryInterface
 
     public function all(array $relations = [])
     {
-        $valid_relations = array_intersect($relations, $this->validRelations('products'));
+        $relations = $this->getRelations($relations, 'storeCategory');
 
-        $this->query->with($valid_relations);
+        $this->query->with($relations);
 
         return $this->query->get();
     }
 
     public function allActiveWithHasRelation(string $relation, array $relations = [])
     {
-        $valid_relations = array_intersect($relations, $this->validRelations('products'));
+        $relations = $this->getRelations($relations, 'storeCategory');
 
-        $this->query->with($valid_relations);
+        $this->query->with($relations);
 
         return $this->query->activeWithHasRelation($relation)->get();
     }
 
     public function find(int $id, array $relations = [])
     {
-        $valid_relations = array_intersect($relations, $this->validRelations('products'));
+        $relations = $this->getRelations($relations, 'storeCategory');
 
-        $this->query->with($valid_relations);
+        $this->query->with($relations);
 
         return $this->query->find($id);
-    }
-
-    private function validRelations(string $relation)
-    {
-        return match ($relation) {
-            'products' => ['products'],
-            default => [],
-        };
     }
 }

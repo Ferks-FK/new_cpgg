@@ -18,9 +18,7 @@ class UpdateServerJob implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct(
-        protected int $server_id,
-        protected mixed $product)
+    public function __construct(protected int $server_id, protected mixed $product)
     {
         $this->serverRepositoryInterface = app(ServerRepositoryInterface::class);
     }
